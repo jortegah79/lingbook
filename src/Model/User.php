@@ -14,16 +14,19 @@ class User
   private static const PROFESOR = "teacher";
   private static const ALUMNO = "alumn";
   private static const ADMINISTRADOR = "admin";
+ 
 
-  public function __contruct__(string $name, string $surname, string $email, string $password, string $type = USER::ALUMNO)
+  public function __contruct(string $name, string $surname, string $email, string $password, string $type=User::ALUMNO)
   {
 
     $this->email = $email;
-    $this->password = password_hash($password, User::SALT);
+    $this->password = password_hash($password, User::SALT);   
     $this->name = $name;
     $this->surname = $surname;
-    $this->type = $type;
+    $this->type = User::devuelve_tipo($type);
+   
   }
+
   //::::::::::::::::::::::.   HACER  LOS GETTER Y LOS SETTERS ::::::::::::::::::::::::::::::::::::::::
 
   public function setName(String $name): void
@@ -57,42 +60,12 @@ class User
     return $this->type;
   }
 
-
-  //:::::::::::::::::::::::::::::::::::::    MÉTODOS NO ESTÁTICOS :::::::::::::::::::::::::.
-
-  public function save()
-  {
-
-    $tipo = User::devuelve_tipo($this->type);
-
-    $bd = new Bbdd();
-    $sql = "insert into USERS (name,surname,mail,password,type,updated_at,created_at) values('" . $this->name . "','" . $this->surname . "','" . $this->email . "','" . $this->password . "','" . $tipo . "','" . date('Y-m-d H:i:s') . "','" . date('Y-m-d H:i:s') . "')";
-    $bd->get_conection()->query($sql);
-   
-  }
-
-
   //:::::::::::::::::::::::::::::::::::::    MÉTODOS ESTÁTICOS :::::::::::::::::::::::::.
-
-  /**
-   * Funcion que devuelve todos los usuarios.
-   */
-  public static function get_all()
-  {
-    $bd = Bbdd::get_conection();
-    $sql = "select * from USERS";
-    $data = array();
-    $result = $bd->query($sql);
-    while ($row = $result->fetch_assoc()) {
-      $data[] = $row;
-    }
-    return $data;
-  } 
 
   /**
    * Funcion para devolver el tipo
    */
-  public static function devuelve_tipo(int $type): string
+  public static function devuelve_tipo(string $type): string
   {
 
     switch ($type) {
@@ -105,6 +78,19 @@ class User
       case 2:
         return User::ALUMNO;
         break;
+      case "admin":
+        return "0";
+        break;
+      case "teacher":
+        return "1";
+        break;
+      case "alumn":
+        return "2";
+        break;
     }
+  }
+
+  public static function crypt_pass($pass){
+    return password_hash($pass, User::SALT);   
   }
 }

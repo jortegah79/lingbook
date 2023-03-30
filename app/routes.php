@@ -10,10 +10,10 @@ return function(App $app){
   
   $app->get('/',HomeController::class . ':index');
 
-
-  $app->get('/users/all',UserController::class.':show');
-  $app->post('/users/new',UserController::class.':create');
-
+  $app->group('/users',function (RouteCollectorProxy $group){
+      $group->get('/all',UserController::class.':show');
+      $group->post('/new',UserController::class.':create');
+});
 
   $app->get('/login',LoginController::class. ':secure');
   $app->post('/login',LoginController::class. ':login');
