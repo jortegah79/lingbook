@@ -3,41 +3,45 @@
 namespace App\Controllers;
 
 require_once "./src/Model/config.php";
-use App\Model\Bbdd;
+
+use App\Model\UserModel;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class LoginController
 {
 
 
-  function secure(Request $request, Response $response, array $data)
-  {
-    session_start();
-    if (isset($_SESSION['TOKEN'])) {
-      if ((strtotime($_SESSION['date_token']) +UN_DIA) < strtotime(date('Y-m-d H:i:s'))) {
-        $_SESSION['TOKEN'] = uniqid();
-        $_SESSION['date_token'] = date('Y-m-d H:i:s');
-      }
-    } else {
-      $_SESSION['TOKEN'] = uniqid();
-      $_SESSION['date_token'] = date('Y-m-d H:i:s');
-    }
-
-    $data['TOKEN_API'] = $_SESSION['TOKEN'];
-
-    $response->getBody()->write(json_encode($data));
-
-    return $response->withHeader("OK", 200);
-  }
-
-  
   function login(Request $request, Response $response, array $data)
   {
+    $data=(array)$request->getParsedBody();    
+    
+    $user=UserModel::one_by_mail($data['mail']);
 
-    $response->getBody()->write("pagina login segunda parte");
+    if(UserModel::verify_pass($data['password'],$user['password'])){
+         
+    $tokenizador=require_once('./app/tokenizador.php');
+    
+    $user['type']=UserModel::devuelve_tipo($user['type']);
 
+    $token=(string)$tokenizador('true',$user);
+
+    $_SESSION['token']=$token;
+    
+    $response->getBody()->write($token);
+    
     return $response;
+
+    }else{
+
+    $response->getBody()->write("error");
+    
+    return $response;
+
+    }          
   }
+  
+
 }

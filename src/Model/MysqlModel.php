@@ -18,7 +18,7 @@ class MysqlModel
     return new mysqli(HOSTNAME, USER, PASS, DATABASE);
   }
 
-
+//devuelve todos los elementos
   public static function select()
   {
     $sql = "select * from " . static::$tabla;   
