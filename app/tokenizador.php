@@ -11,15 +11,14 @@ use Firebase\JWT\Key;
 return function (bool  $tokenizar=true,$array,$token=""){
      $key = 'lingbook';
 
-    if($tokenizar){
-    $now=strtotime('now');
+    if($tokenizar){    
   
 $payload = [
     'iss' => 'Catcoders',
     'aud' => 'identify_users',
     'iat' => 1356999524,
     'nbf' => 1357000000,
-    'exp' => $now + 3600,
+    
     'id_user' => $array['id_user'],
     'name'=> $array['name'],
     'surname'=>$array['surname'],
@@ -31,9 +30,7 @@ return $jwt = JWT::encode($payload, $key, 'HS256');
 
 }else{
     $jwt=$token;
-$decoded_array = (array)JWT::decode($jwt, new Key($key, 'HS256'));
-
-var_dump($decoded_array);
+    $decoded_array = (array)JWT::decode($jwt, new Key($key, 'HS256'));
 
 }
 };
