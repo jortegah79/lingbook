@@ -20,7 +20,7 @@ class LoginController
     
     $user=UserModel::one_by_mail($data['mail']);
 
-    if(UserModel::verify_pass($data['password'],$user['password'])){
+    if(UserModel::verify_pass($data['password'],$user['password']??"")){
          
     $tokenizador=require_once('./app/tokenizador.php');
     

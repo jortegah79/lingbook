@@ -9,8 +9,8 @@ use Firebase\JWT\Key;
  * Si entregamos el valor false, y un token recibido, descomprime el token y comparará con el que haya guardado en la session.
  */
 return function (bool  $tokenizar=true,$array,$token=""){
-     $key = 'lingbook';
-
+    
+    $key = 'lingbook';
     if($tokenizar){    
   
 $payload = [

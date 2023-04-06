@@ -1,9 +1,9 @@
-﻿-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2023 at 08:40 PM
+-- Generation Time: Apr 06, 2023 at 06:17 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -40,7 +40,7 @@ CREATE TABLE `CREATOR_ROOM` (
 
 CREATE TABLE `LANGUAGES` (
   `id_language` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -78,10 +78,10 @@ CREATE TABLE `ROOM` (
 CREATE TABLE `USERS` (
   `id_user` int(11) NOT NULL,
   `type` enum('admin','alumn','teacher') NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `surname` varchar(40) NOT NULL,
-  `mail` varchar(40) NOT NULL,
-  `password` varchar(12) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `surname` varchar(255) NOT NULL,
+  `mail` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -117,7 +117,7 @@ CREATE TABLE `USERS_VIDEOS_MESSAGES` (
 
 CREATE TABLE `VIDEOS` (
   `id_video` int(11) NOT NULL,
-  `link` varchar(70) NOT NULL,
+  `link` varchar(255) NOT NULL,
   `likes` int(11) NOT NULL,
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
   `created_at` timestamp NULL DEFAULT current_timestamp()

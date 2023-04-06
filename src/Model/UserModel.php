@@ -7,9 +7,7 @@ class UserModel extends MysqlModel{
      const ADMINISTRADOR = "admin";
      const PROFESOR = "teacher";
      const ALUMNO = "alumn";
-     const SALT="7931";
- 
-
+    
      /**
       * Function para registrar nuevos usuarios. En caso de que el correo ya se haya registrado, se devuelve un 1. Si no, se registra, encriptamos contraseña y devolvemos un 0.
       */
@@ -29,9 +27,19 @@ class UserModel extends MysqlModel{
 
   }else{
     return "1";
-  }
+  }  
  } 
+ 
+ /**
+  * Funcion para hacer el borrado de la tabla USERS
+  */
+public static function trucate_table(){
 
+  $sql="delete from USERS where 1=1";
+
+  return UserModel::execute($sql);
+
+}
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::.FUNCIONES EXTRAS PARA CONTROL::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -47,6 +55,18 @@ class UserModel extends MysqlModel{
  
   return count($data)>0?$data[0]:[];
 }
+
+ /**
+  * Funcion especifica de usuario. Devuelve un 1 usuario por el mail espeficado.
+  */
+  public static function one_by_id($id){
+  
+    $sql="select * from USERS where id_user='$id'";    
+   
+    $data=MysqlModel::execute($sql);
+   
+    return count($data)>0?$data[0]:[];
+  }
 
 /**
  * Funcion que nos devuelve el tipo de usuario para poder introducir en la tabla o para devolverselo al front-end
@@ -95,6 +115,7 @@ class UserModel extends MysqlModel{
 
   }
 }
+
 
 
 
