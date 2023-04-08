@@ -49,11 +49,17 @@ class UserController
   {
     $data = UserModel::one_by_id($data['id']);
 
+    if(count($data)>0){
+
     $data['type']=UserModel::devuelve_tipo($data['type']);
+    
+    }
     
     $response->getBody()->write(json_encode($data));
 
     return $response;
+
+    
   }
 
 

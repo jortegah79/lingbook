@@ -63,4 +63,6 @@ return function (App $app) {
   //SERVIDOR
   //  http://www.lingbook.cat.mialias.net/lingbook/renew_bbdd
   $app->get('/renew_bbdd', HomeController::class . ':complete_all'); //reconstruye los datos de las tablas users/videos/languages
+
+   
 };

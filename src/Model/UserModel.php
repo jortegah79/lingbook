@@ -65,7 +65,7 @@ public static function trucate_table(){
    
     $data=MysqlModel::execute($sql);
    
-    return count($data)>0?$data[0]:[];
+    return $data[0]??[];
   }
 
 /**
