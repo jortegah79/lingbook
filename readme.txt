@@ -1,4 +1,4 @@
-<h1>Esta es la api generada para el proyecto lingbook de los Catcoders(m12 grupo 8 para DAW -PROYECTO-)</h1>
+Esta es la api generada para el proyecto lingbook de los Catcoders(m12 grupo 8 para DAW -PROYECTO-)
 
 Esta contruida en php slim. 
 
