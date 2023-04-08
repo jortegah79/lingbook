@@ -17,11 +17,13 @@ class UserController
     $data = UserModel::select();
     
     foreach($data as $k=> $v){
-   
+           
+      $data[$k]['type']=UserModel::devuelve_tipo($data[$k]['type']);
+
       unset($data[$k]['password']);     
     
     }     
-    
+      
     $response->getBody()->write(json_encode($data));
 
     return $response;
@@ -47,6 +49,8 @@ class UserController
   {
     $data = UserModel::one_by_id($data['id']);
 
+    $data['type']=UserModel::devuelve_tipo($data['type']);
+    
     $response->getBody()->write(json_encode($data));
 
     return $response;
