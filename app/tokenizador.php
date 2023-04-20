@@ -17,8 +17,7 @@ $payload = [
     'iss' => 'Catcoders',
     'aud' => 'identify_users',
     'iat' => 1356999524,
-    'nbf' => 1357000000,
-    
+    'nbf' => 1357000000,    
     'id_user' => $array['id_user'],
     'name'=> $array['name'],
     'surname'=>$array['surname'],

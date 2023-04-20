@@ -81,13 +81,6 @@ $text="
     return $response;
   }
   
-  function error(Request $request,Response $response, array $data){
-
-    $response->getBody()->write("404 NOT FOUND");
-
-    return $response->withHeader("ERROR",404);
-
-  }
 
 
 }

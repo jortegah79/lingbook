@@ -34,7 +34,7 @@ $array_lenguas[3]=["name"=>"german"];
 $array_lenguas[4]=["name"=>"chinese"];
 $array_lenguas[5]=["name"=>"japanese"];
 $array_lenguas[6]=["name"=>"russian"];
-$array_lenguas[7]=["name"=>"portugese"];
+$array_lenguas[7]=["name"=>"portuguese"];
 
 //usuarios
 
