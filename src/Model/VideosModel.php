@@ -23,6 +23,15 @@ class VideosModel extends MysqlModel
 
   //::::::::::::::::::::::::::::::::::::::::::::::::::.FUNCIONES EXTRAS PARA CONTROL::::::::::::::::::::::::::::::::::::::::::::::
 
+  public static function re_new_video($data)
+  {
+    $sql = "insert into " . static::$tabla . " (id_video,status,link,likes) values('".$data['id_video']."','" .$data['status']."','" . $data['link']."',0)";
+      
+      return  VideosModel::new($sql);
+    
+  }
+
+
  /**
    * Funcion especifica de lenguaje. Devuelve un 1 lenguaje por su id espeficado.
    */
@@ -36,20 +45,4 @@ class VideosModel extends MysqlModel
 
   }
 
-  /*
-  Funcion para elminar todos los datos de la tabla.
-  */
-   public static function truncate_all(){
-
-    $sql="delete from ".static::$tabla." where 1=1";
-
-    VideosModel::execute($sql);
-    
-  }
-
-
-
-
-
-  /*Desde aqui tendremos las posibles funciones  de apoyo.*/
 }

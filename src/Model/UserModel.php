@@ -30,17 +30,25 @@ class UserModel extends MysqlModel{
   }  
  } 
  
- /**
-  * Funcion para hacer el borrado de la tabla USERS
-  */
-public static function trucate_table(){
+ 
+public static function re_new_user($data){
 
-  $sql="delete from USERS where 1=1";
+  $users= UserModel::one_by_mail($data['mail']);  
+   
+  if(count($users)==0){  
+    
+   $tipo=static::devuelve_tipo($data['type']);    
+     
+   $pass=static::crypt_pass($data['password']);
 
-  return UserModel::execute($sql);
+  $sql="insert into USERS (id_user,name,surname,mail,status,password,type,updated_at,created_at) values('".$data['id_user']."','" . $data['name'] . "','" . $data['surname'] . "','" . $data['mail']."','" .$data['status']."','" . $pass. "','" . $tipo. "','" . date('Y-m-d H:i:s') . "','" . date('Y-m-d H:i:s') . "')";
+   
+  return  UserModel::new($sql);  
 
+}else{
+  return "1";
+}  
 }
-
 //::::::::::::::::::::::::::::::::::::::::::::::::::.FUNCIONES EXTRAS PARA CONTROL::::::::::::::::::::::::::::::::::::::::::::::
 
 

@@ -52,4 +52,12 @@ class MysqlModel
     MysqlModel::get_conection()->query($query);
     return MysqlModel::get_conection()->insert_id;
   }
+
+  public static function trucate_table(){
+
+    $sql="delete from ".static::$tabla." where 1=1";
+  
+    return UserModel::execute($sql);
+  
+  }
 }

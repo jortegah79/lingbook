@@ -17,13 +17,28 @@ class LanguagesModel extends MysqlModel
 
       $sql = "insert into " . static::$tabla . " (name) values('" . $data['name'] . "')";
 
-      return  LanguagesModel::new($sql);
+      return  static::new($sql);
     } else {
       return "1";
     }
   }
 
   //::::::::::::::::::::::::::::::::::::::::::::::::::.FUNCIONES EXTRAS PARA CONTROL::::::::::::::::::::::::::::::::::::::::::::::
+
+
+  public static function re_new_language($data)  {
+
+    $users = LanguagesModel::one_by_name(strtolower($data['name']));
+
+    if (count($users) == 0) {
+
+      $sql = "insert into " . static::$tabla . " (id_language,name) values('".$data['id_language']."','" . $data['name'] . "')";
+
+      return  static::new($sql);
+    } else {
+      return "1";
+    }
+  }
 
 
   /**
@@ -35,7 +50,7 @@ class LanguagesModel extends MysqlModel
 
     $sql = "select * from " . static::$tabla . " where name='$name'";
 
-    $data = MysqlModel::execute($sql);
+    $data = static::execute($sql);
 
     return count($data) > 0 ? $data[0] : [];
   }
@@ -48,20 +63,13 @@ class LanguagesModel extends MysqlModel
   {
     $sql = "select * from " . static::$tabla . " where id_language='$id'";
 
-    $data = MysqlModel::execute($sql);
+    $data = static::execute($sql);
 
     return count($data) > 0 ? $data[0] : [];
   }
 
-  /*
-  Funcion para elminar todos los datos de la tabla.
-  */
-   public static function truncate_all(){
-
-    $sql="delete from ".static::$tabla." where 1=1";
-
-    LanguagesModel::execute($sql);
+ 
     
-  }
+  
 
 }

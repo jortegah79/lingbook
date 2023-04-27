@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 06, 2023 at 06:17 PM
+-- Generation Time: Apr 25, 2023 at 03:05 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,17 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `lingbook`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `CREATOR_ROOM`
---
-
-CREATE TABLE `CREATOR_ROOM` (
-  `id_user` int(11) NOT NULL,
-  `id_room` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -53,7 +42,8 @@ CREATE TABLE `MESSAGES` (
   `id_message` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
-  `created_at` timestamp NULL DEFAULT current_timestamp()
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -66,7 +56,8 @@ CREATE TABLE `ROOM` (
   `id_room` int(11) NOT NULL,
   `capacity` int(11) NOT NULL,
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
-  `created_at` timestamp NULL DEFAULT current_timestamp()
+  `description` varchar(255) DEFAULT NULL,
+  `DATA` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -83,6 +74,7 @@ CREATE TABLE `USERS` (
   `mail` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  `status` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -94,6 +86,18 @@ CREATE TABLE `USERS` (
 
 CREATE TABLE `USERS_LANGUAGES` (
   `id_users` int(11) NOT NULL,
+  `id_language` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `USERS_ROOM_LANGUAGES`
+--
+
+CREATE TABLE `USERS_ROOM_LANGUAGES` (
+  `id_user` int(11) NOT NULL,
+  `id_room` int(11) NOT NULL,
   `id_language` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -120,19 +124,13 @@ CREATE TABLE `VIDEOS` (
   `link` varchar(255) NOT NULL,
   `likes` int(11) NOT NULL,
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  `status` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `CREATOR_ROOM`
---
-ALTER TABLE `CREATOR_ROOM`
-  ADD UNIQUE KEY `id_user` (`id_user`,`id_room`),
-  ADD KEY `id_room` (`id_room`);
 
 --
 -- Indexes for table `LANGUAGES`
@@ -164,6 +162,14 @@ ALTER TABLE `USERS`
 --
 ALTER TABLE `USERS_LANGUAGES`
   ADD UNIQUE KEY `id_users` (`id_users`,`id_language`),
+  ADD KEY `id_language` (`id_language`);
+
+--
+-- Indexes for table `USERS_ROOM_LANGUAGES`
+--
+ALTER TABLE `USERS_ROOM_LANGUAGES`
+  ADD UNIQUE KEY `id_user` (`id_user`,`id_room`,`id_language`),
+  ADD KEY `id_room` (`id_room`),
   ADD KEY `id_language` (`id_language`);
 
 --
@@ -219,26 +225,27 @@ ALTER TABLE `VIDEOS`
 --
 
 --
--- Constraints for table `CREATOR_ROOM`
---
-ALTER TABLE `CREATOR_ROOM`
-  ADD CONSTRAINT `CREATOR_ROOM_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id_user`),
-  ADD CONSTRAINT `CREATOR_ROOM_ibfk_2` FOREIGN KEY (`id_room`) REFERENCES `ROOM` (`id_room`);
-
---
 -- Constraints for table `USERS_LANGUAGES`
 --
 ALTER TABLE `USERS_LANGUAGES`
-  ADD CONSTRAINT `USERS_LANGUAGES_ibfk_1` FOREIGN KEY (`id_users`) REFERENCES `USERS` (`id_user`),
-  ADD CONSTRAINT `USERS_LANGUAGES_ibfk_2` FOREIGN KEY (`id_language`) REFERENCES `LANGUAGES` (`id_language`);
+  ADD CONSTRAINT `USERS_LANGUAGES_ibfk_1` FOREIGN KEY (`id_users`) REFERENCES `USERS` (`id_user`) on update cascade on delete restrict,
+  ADD CONSTRAINT `USERS_LANGUAGES_ibfk_2` FOREIGN KEY (`id_language`) REFERENCES `LANGUAGES` (`id_language`) on update cascade on delete restrict;
+
+--
+-- Constraints for table `USERS_ROOM_LANGUAGES`
+--
+ALTER TABLE `USERS_ROOM_LANGUAGES`
+  ADD CONSTRAINT `USERS_ROOM_LANGUAGES_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id_user`) on update cascade on delete restrict,
+  ADD CONSTRAINT `USERS_ROOM_LANGUAGES_ibfk_2` FOREIGN KEY (`id_room`) REFERENCES `ROOM` (`id_room`) on update cascade on delete restrict,
+  ADD CONSTRAINT `USERS_ROOM_LANGUAGES_ibfk_3` FOREIGN KEY (`id_language`) REFERENCES `LANGUAGES` (`id_language`) on update cascade on delete restrict;
 
 --
 -- Constraints for table `USERS_VIDEOS_MESSAGES`
 --
 ALTER TABLE `USERS_VIDEOS_MESSAGES`
-  ADD CONSTRAINT `USERS_VIDEOS_MESSAGES_ibfk_1` FOREIGN KEY (`id_video`) REFERENCES `VIDEOS` (`id_video`),
-  ADD CONSTRAINT `USERS_VIDEOS_MESSAGES_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id_user`),
-  ADD CONSTRAINT `USERS_VIDEOS_MESSAGES_ibfk_3` FOREIGN KEY (`id_message`) REFERENCES `MESSAGES` (`id_message`);
+  ADD CONSTRAINT `USERS_VIDEOS_MESSAGES_ibfk_1` FOREIGN KEY (`id_video`) REFERENCES `VIDEOS` (`id_video`) on update cascade on delete restrict,
+  ADD CONSTRAINT `USERS_VIDEOS_MESSAGES_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id_user`) on update cascade on delete restrict,
+  ADD CONSTRAINT `USERS_VIDEOS_MESSAGES_ibfk_3` FOREIGN KEY (`id_message`) REFERENCES `MESSAGES` (`id_message`) on update cascade on delete restrict;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

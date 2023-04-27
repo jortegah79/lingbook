@@ -2,9 +2,16 @@
 
 namespace App\Controllers;
 
-use App\Model\LanguagesModel;
 use App\Model\UserModel;
+use App\Model\LanguagesModel;
+use App\Model\MessagesModel;
 use App\Model\VideosModel;
+
+use App\Model\RoomModel;
+use App\Model\UserLanguageModel;
+use App\Model\UserRoomModel;
+use App\Model\UserVideoMessagesModel;
+
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -15,7 +22,7 @@ class HomeController{
    * Funcion para saludar por parte del equipo.
    */
   function index(Request $request,Response $response, array $data){
-
+    
     $data=array(
       "Grup"=>"CATCODERS",
       "Producte"=>"LingBook",
@@ -35,14 +42,31 @@ class HomeController{
    */
   function delete_all(Request $request,Response $response, array $data){
    
+    UserLanguageModel::trucate_table();
+    UserVideoMessagesModel::trucate_table();
+    UserRoomModel::trucate_table();
+    RoomModel::trucate_table();
+
     UserModel::trucate_table();
-    LanguagesModel::truncate_all();
-    VideosModel::truncate_all();
+    LanguagesModel::trucate_table();
+    VideosModel::trucate_table();   
+    MessagesModel::trucate_table();
+
+    
+
     $text="
     <H1>LAS TABLAS SIGUIENTES HAN SIDO BORRADAS </H1>
-    <H2>USERS</H2>
-    <H2>LANGUAGES</H2>
-    <H2>VIDEOS</H2>";
+    <h2>Usuarios</h2>
+    <h2>Lenguas</h2>
+    
+    <h2>Videos</h2>
+    <h2>classrooms</h2>
+    
+    <h2>Usuarios-classrooms-lenguas</h2>
+    <h2>Mensajes</h2>
+    
+    <h2>Lengua-usuarios</h2>
+    <h2>uSUARIO-VIDEO-MENSAJE</h2>";
     $response->getBody()->write($text);
 
     return $response;  
@@ -55,32 +79,63 @@ class HomeController{
    
     $datas=require_once('./app/datos_bbdd.php');
     
-    //renovamos los usuarios    
+   //renovamos los usuarios    
     foreach($datas['users'] as $d):
-      UserModel::create_user($d);
+      UserModel::re_new_user($d);
     endforeach;
 
     //renovamos lenguages
     foreach($datas['lenguas'] as $d):
-      LanguagesModel::create_language($d);      
+      LanguagesModel::re_new_language($d);      
     endforeach;
-    
-    //renovamos videos
-    foreach($datas['videos'] as $d):
      
-     VideosModel::create_video($d);
+  //renovamos videos
+    foreach($datas['videos'] as $d):     
+     VideosModel::re_new_video($d);
     endforeach;
 
-$text="
+     //creamos las rooms
+    foreach($data['room'] as $d):
+      RoomModel::re_new_room($d);
+    endforeach;
+
+    //renovamos la interseccion users,room,language
+    foreach($data['usu_roo_lan'] as $d):
+      UserRoomModel::add_to_class($d);
+    endforeach;
+
+    //renovamos insterseccion usuario room language
+      foreach($datas['mensajes'] as $d):
+      MessagesModel::re_new_message($d);     
+    endforeach;
+
+    //renovamos los user languages
+      foreach($datas['user_languages'] as $d):
+      UserLanguageModel::addUserLang($d);     
+    endforeach;
+
+    //renovamos los video users messages
+     foreach($datas['vid_us_mes'] as $d):
+      UserVideoMessagesModel::addUserVideoMessage($d);      
+    endforeach;
+
+    
+    $text="
 <h1>Han sido introducido datos en las tablas:</h1>
-<h2>USERS</h2>
-<h2>VIDEOS</h2>
-<h2>LANGUAGES</h2>
+<h2>Usuarios</h2>
+<h2>Lenguas</h2>
+
+<h2>Videos</h2>
+<h2>classrooms</h2>
+
+<h2>Usuarios-classrooms-lenguas</h2>
+<h2>Mensajes</h2>
+
+<h2>Lengua-usuarios</h2>
+<h2>uSUARIO-VIDEO-MENSAJE</h2>
 ";
     $response->getBody()->write($text);
     return $response;
   }
   
-
-
 }

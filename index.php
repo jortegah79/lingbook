@@ -1,6 +1,9 @@
 <?php
 require (__DIR__.'/vendor/autoload.php');
 
+
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Slim\Factory\AppFactory;
 
 $app=AppFactory::create();
@@ -14,7 +17,8 @@ $app->setBasePath('/lingbook');
 
 //Generando las rutas
 
-$routes=require __DIR__."/app/routes.php";
+$routes=include __DIR__."/app/routes.php";
 $routes($app);
+
 
 $app->run();
