@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 25, 2023 at 03:05 PM
+-- Generation Time: Apr 27, 2023 at 06:44 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -228,24 +228,24 @@ ALTER TABLE `VIDEOS`
 -- Constraints for table `USERS_LANGUAGES`
 --
 ALTER TABLE `USERS_LANGUAGES`
-  ADD CONSTRAINT `USERS_LANGUAGES_ibfk_1` FOREIGN KEY (`id_users`) REFERENCES `USERS` (`id_user`) on update cascade on delete restrict,
-  ADD CONSTRAINT `USERS_LANGUAGES_ibfk_2` FOREIGN KEY (`id_language`) REFERENCES `LANGUAGES` (`id_language`) on update cascade on delete restrict;
+  ADD CONSTRAINT `USERS_LANGUAGES_ibfk_1` FOREIGN KEY (`id_users`) REFERENCES `USERS` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `USERS_LANGUAGES_ibfk_2` FOREIGN KEY (`id_language`) REFERENCES `LANGUAGES` (`id_language`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `USERS_ROOM_LANGUAGES`
 --
 ALTER TABLE `USERS_ROOM_LANGUAGES`
-  ADD CONSTRAINT `USERS_ROOM_LANGUAGES_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id_user`) on update cascade on delete restrict,
-  ADD CONSTRAINT `USERS_ROOM_LANGUAGES_ibfk_2` FOREIGN KEY (`id_room`) REFERENCES `ROOM` (`id_room`) on update cascade on delete restrict,
-  ADD CONSTRAINT `USERS_ROOM_LANGUAGES_ibfk_3` FOREIGN KEY (`id_language`) REFERENCES `LANGUAGES` (`id_language`) on update cascade on delete restrict;
+  ADD CONSTRAINT `USERS_ROOM_LANGUAGES_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `USERS_ROOM_LANGUAGES_ibfk_2` FOREIGN KEY (`id_room`) REFERENCES `ROOM` (`id_room`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `USERS_ROOM_LANGUAGES_ibfk_3` FOREIGN KEY (`id_language`) REFERENCES `LANGUAGES` (`id_language`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `USERS_VIDEOS_MESSAGES`
 --
 ALTER TABLE `USERS_VIDEOS_MESSAGES`
-  ADD CONSTRAINT `USERS_VIDEOS_MESSAGES_ibfk_1` FOREIGN KEY (`id_video`) REFERENCES `VIDEOS` (`id_video`) on update cascade on delete restrict,
-  ADD CONSTRAINT `USERS_VIDEOS_MESSAGES_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id_user`) on update cascade on delete restrict,
-  ADD CONSTRAINT `USERS_VIDEOS_MESSAGES_ibfk_3` FOREIGN KEY (`id_message`) REFERENCES `MESSAGES` (`id_message`) on update cascade on delete restrict;
+  ADD CONSTRAINT `USERS_VIDEOS_MESSAGES_ibfk_1` FOREIGN KEY (`id_video`) REFERENCES `VIDEOS` (`id_video`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `USERS_VIDEOS_MESSAGES_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `USERS_VIDEOS_MESSAGES_ibfk_3` FOREIGN KEY (`id_message`) REFERENCES `MESSAGES` (`id_message`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
