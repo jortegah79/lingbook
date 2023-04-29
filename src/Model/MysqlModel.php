@@ -26,7 +26,7 @@ class MysqlModel
   {
     $sql = "select * from " . static::$tabla;
 
-    return MysqlModel::execute($sql);
+    return static::execute($sql);
   }
 
   public static function execute($query)
@@ -59,5 +59,13 @@ class MysqlModel
   
     return UserModel::execute($sql);
   
+  }
+
+
+  public static function getLast(){
+    
+    $sql="select * from ".static::$tabla. " order by created_at desc limit 1";
+
+    return static::execute($sql);
   }
 }

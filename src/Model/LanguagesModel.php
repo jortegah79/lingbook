@@ -9,57 +9,65 @@ class LanguagesModel extends MysqlModel
   /**
    * Function para registrar nuevos lenguajes. En caso de que el haya uno registrado, se devuelve un 1. Si no, se registra y devolvemos un 0.
    */
-  public static function create_language($data)  {
+  public static function create_language($data):string
+  {
 
-    $users = LanguagesModel::one_by_name(strtolower($data['name']));
+    $users = LanguagesModel::oneByName(strtolower($data['name']));
 
     if (count($users) == 0) {
 
       $sql = "insert into " . static::$tabla . " (name) values('" . $data['name'] . "')";
 
       return  static::new($sql);
+   
     } else {
+  
       return "1";
+ 
     }
   }
 
   //::::::::::::::::::::::::::::::::::::::::::::::::::.FUNCIONES EXTRAS PARA CONTROL::::::::::::::::::::::::::::::::::::::::::::::
 
 
-  public static function re_new_language($data)  {
+  public static function re_new_language($data):string
+  {
 
-    $users = LanguagesModel::one_by_name(strtolower($data['name']));
+    $users = LanguagesModel::oneByName(strtolower($data['name']));
 
     if (count($users) == 0) {
 
-      $sql = "insert into " . static::$tabla . " (id_language,name) values('".$data['id_language']."','" . $data['name'] . "')";
+      $sql = "insert into " . static::$tabla . " (id_language,name) values('" . $data['id_language'] . "','" . $data['name'] . "')";
 
       return  static::new($sql);
+   
     } else {
+   
       return "1";
+  
     }
+  
   }
 
 
   /**
    * Funcion especifica de lenguaje. Devuelve un 1 lenguaje por su nombre espeficado.
    */
-  public static function one_by_name($name)
+  public static function oneByName($name):array
   {
     $name = strtolower($name);
 
-    $sql = "select * from " . static::$tabla . " where name='$name'";
+    $sql = "select * from " . static::$tabla . " where name='".$name."'";
 
-    $data = static::execute($sql);
-
-    return count($data) > 0 ? $data[0] : [];
+    return static::execute($sql);
+  
   }
 
 
- /**
+  /**
    * Funcion especifica de lenguaje. Devuelve un 1 lenguaje por su id espeficado.
    */
-  public static function one_by_id($id)
+  public static function oneById($id):array
   {
     $sql = "select * from " . static::$tabla . " where id_language='$id'";
 
@@ -68,8 +76,16 @@ class LanguagesModel extends MysqlModel
     return count($data) > 0 ? $data[0] : [];
   }
 
- 
-    
-  
+  public static function editLang($id, $name):bool
+  {
 
+    $lang = static::oneById($id);
+
+    if (count($lang) > 0) {
+
+      $sql = "update " . static::$tabla . " set name=$name where id_language=$id";
+
+      return static::execute($sql);
+    }
+  }
 }

@@ -8,24 +8,38 @@ class UserRoomModel extends MysqlModel{
   Es la que usamos para determinar que tabla usaremos.*/
  static $tabla="USERS_ROOM_LANGUAGES";
    
-public static function getAll(){
 
-  $sql="select * from ".static::$tabla;
-
-  return UserRoomModel::execute($sql);
-}
-
-public static function add_to_class($data){
-
+public static function add_to_class($data):bool{
+  
   
   $sql="insert into ".static::$tabla ." (id_user,id_room,id_language) values ('".$data['id_user']."','".$data['id_room']."','".$data['id_language']."')";
-
-  UserRoomModel::execute($sql);
-
-}
-
+  
+  return UserRoomModel::execute($sql);
 
 }
 
+public static function obtieneClasesUsuario($id):array{
 
+  $user=UserModel::one_by_id($id);
 
+  if(count($user)>0){
+
+  $sql="SELECT r.*,l.* FROM USERS_ROOM_LANGUAGES url join LANGUAGES l on l.id_language=url.id_language join ROOM r on r.id_room=url.id_room join USERS u on u.id_user=url.id_user where url.id_user=$id";
+
+  return  static::execute($sql);
+  }
+
+}
+public static function obtieneUsuariosClase($id):array{
+
+  $room=RoomModel::oneById($id);
+
+  if(count($room)>0){
+
+  $sql="SELECT r.*,l.* FROM USERS_ROOM_LANGUAGES url join LANGUAGES l on l.id_language=url.id_language join ROOM r on r.id_room=url.id_room join USERS u on u.id_user=url.id_user where url.id_room=$id";
+
+  return  static::execute($sql);
+  }
+
+}
+}

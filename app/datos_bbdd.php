@@ -101,6 +101,11 @@ $array_user_languages[9]=["id_users"=>13,"id_languages"=>3];
 $array_user_languages[10]=["id_users"=>12,"id_languages"=>2];
 $array_user_languages[11]=["id_users"=>8,"id_languages"=>6];
 $array_user_languages[12]=["id_users"=>14,"id_languages"=>1];
+$array_user_languages[13]=["id_users"=>2,"id_languages"=>1];
+$array_user_languages[14]=["id_users"=>3,"id_languages"=>3];
+$array_user_languages[15]=["id_users"=>3,"id_languages"=>6];
+$array_user_languages[16]=["id_users"=>2,"id_languages"=>3];
+$array_user_languages[17]=["id_users"=>3,"id_languages"=>2];
 
 $array_room[0]=["id_room"=>1,"capacity"=>5,"DATA"=>"2023-05-22 15:00:00","description"=>"clase de inglés.Por favor, si finalmente no puedes asistir, deja libre para otro compañero."];
 $array_room[1]=["id_room"=>2,"capacity"=>5,"DATA"=>"2023-05-16 16:30:00","description"=>"clase de italiano .Por favor, si finalmente no puedes asistir, deja libre para otro compañero."];

@@ -58,11 +58,28 @@ class UserController
     $response->getBody()->write(json_encode($data));
 
     return $response;
-
     
   }
+  function edit(Request $request,Response $response,array $data){
 
+    $idUser=$data['id'];
+  
+    $data=(array)$request->getParsedBody();
+  
+    $value=UserModel::editUser($idUser,$data);
+  
+    $response->getBody()->write(json_encode($value));
+  
+    return $response;
+  }
+  function changeStatus(Request $request, Response $response, array $data){
 
+    $result=UserModel::changeStatus($data['id']);
 
+    $response->getBody()->write(json_encode($result));
+
+    return $response;
+  }
+  
 
 }

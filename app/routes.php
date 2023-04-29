@@ -5,6 +5,8 @@ use App\Controllers\HomeController;
 use App\Controllers\LoginController;
 use App\Controllers\UserController;
 use App\Controllers\LanguagesController;
+use App\Controllers\MessageController;
+use App\Controllers\TeacherController;
 use App\Controllers\VideosController;
 use App\Model\RoomModel;
 use App\Model\UserLanguageModel;
@@ -19,7 +21,7 @@ return function (App $app) {
   // SERVIDOR
   //  http://www.lingbook.cat.mialias.net/lingbook/
 
-  $app->get('/',HomeController::class. ':index'); //RUTA QUE MUESTRA DESCRIPCION DEL GRUPO
+  $app->get('/', HomeController::class . ':index'); //RUTA QUE MUESTRA DESCRIPCION DEL GRUPO
 
   // LOCAL
   // localhost/lingbook/users
@@ -32,58 +34,65 @@ return function (App $app) {
     $group->post('/new', UserController::class . ':create'); //crea nuevo usuario  requiere(name,surname,mail,password,type ( puede ser 0/1/2))
     $group->get('/{id}',  UserController::class . ':getone');   //devuelve un usuario por su id
     $group->post('/login', LoginController::class . ':login'); //recibe un usuario y contraseña y devuelve un token
+    $group->put('/{id}', UserController::class . ':edit'); //Edita el usuario escificado con los datos pasados.
+    $group->delete('/{id}', UserController::class . ':changeStatus'); //cambia estado usuario-
   });
- 
+
 
   // LOCAL
   // localhost/lingbook/languages
   //SERVIDOR
   //  http://www.lingbook.cat.mialias.net/lingbook/languages
 
-  
+
   $app->group('/languages', function (RouteCollectorProxy $group) { //GRUPO DE RUTAS PARA GESTION DE LANGUAGES
     $group->get('/all', LanguagesController::class . ':show'); //muestra todos los lenguajes
     $group->post('/new', LanguagesController::class . ':create'); //crea un nuevo lenguaje requiere solo el nombre (name)
-    $group->get('/{id}',  LanguagesController::class . ':getone');   //devuelve un lenguaje por su id
+    $group->get('/id/{id}',  LanguagesController::class . ':getone');   //devuelve un lenguaje por su id
+    $group->get('/name/{name}',  LanguagesController::class . ':getByName');   //devuelve un lenguaje por su nombre 
+    $group->put('/{id}',  LanguagesController::class . ':edit');   //edita lenguage
   });
 
   // LOCAL
   // localhost/lingbook/videos
   //SERVIDOR
   //  http://www.lingbook.cat.mialias.net/lingbook/videos
-  
-  
+
+
   $app->group('/videos', function (RouteCollectorProxy $group) { //GRUPO DE RUTAS PARA GESTION DE LANGUAGES
     $group->get('/all', VideosController::class . ':show'); //muestra todos los videos
     $group->post('/new', VideosController::class . ':create'); //crea un nuevo video requiere solo el (link)
     $group->get('/{id}',  VideosController::class . ':getone');  //devuelve el video especificado por el id 
+    $group->delete('/{id}',  VideosController::class . ':changeStatus');  //habilita o deshabilita el video con el id determinado
+    $group->put('/{id}',  VideosController::class . ':edit');  //edita el video determinado por su id
+    $group->post('/{id}',  VideosController::class . ':like');  //añade like al video determinado
+    $group->post('/{id}/message',VideosController::class.':addMessage');
   });
+
+
+  /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::  LOS NUEVOS A DIA 24/04/2023:::::::::::::::*/
+
+  $app->group('/messages', function (RouteCollectorProxy $group) {
+
+    $group->get('/all', MessageController::class . ':show'); //muestra todos los mensajes
+    $group->put('/{id}', MessageController::class . ':edit'); //edita el mensaje con el id especificado 
+    $group->get('/{id}', MessageController::class . ':getMessage'); //devuelve el mensaje por el id pasado
+
+  });
+  
+$app->group('/teacher/{id}',function(RouteCollectorProxy $group){
 
   
-/*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::  LOS NUEVOS A DIA 24/04/2023:::::::::::::::*/
+  $group->post('/room',TeacherController::class.':newRoom'); //añade un nuevo mensaje del profesor
+  
+
+});
 
 
- $app->group('/alumn/{id}',function(RouteCollectorProxy $group){
 
-    $group->get('/langs',UserLanguageModel::class.'getAlumnLangs');
-    $group->get('/classes',RoomModel::class.'getAlumnClasses');
-    $group->get('/comments',UserLanguageModel::class.'getAlumnComments');
-  });
+  //  $app->get('/videos/comments',VideosController::class.':getComments');
 
-  //$app->get('/langs/teachers',LanguagesController::class.':getTeachers');
-
-
-  $app->group('/teacher/{id}',function(RouteCollectorProxy $group){
-    
-    $group->get('/videos',UserLanguageModel::class.'getAlumnLangs');
-    $group->get('/classes',RoomModel::class.'getAlumnClasses');
-    $group->get('/comments',UserLanguageModel::class.'getAlumnComments');
-
-  });
-
-//  $app->get('/videos/comments',VideosController::class.':getComments');
-
-/*::::::::::::::::::::::::::::::::::::::::::::::  hasta aqui :::::::::::::::::::::::::*/
+  /*::::::::::::::::::::::::::::::::::::::::::::::  hasta aqui :::::::::::::::::::::::::*/
   // LOCAL
   // localhost/lingbook/truncate_bbdd
   //SERVIDOR
@@ -96,7 +105,7 @@ return function (App $app) {
   //  http://www.lingbook.cat.mialias.net/lingbook/renew_bbdd
   $app->get('/renew_bbdd', HomeController::class . ':complete_all'); //reconstruye los datos de las tablas users/videos/languages
 
-   
+
 };
 
 

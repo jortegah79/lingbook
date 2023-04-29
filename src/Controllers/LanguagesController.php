@@ -9,9 +9,9 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class LanguagesController
 {
-/**
- * Funcion que sirve para mostrar todos los lenguajes
- */
+  /**
+   * Funcion que sirve para mostrar todos los lenguajes
+   */
   function show(Request $request, Response $response, array $data)
   {
     $data = LanguagesModel::select();
@@ -20,13 +20,13 @@ class LanguagesController
 
     return $response;
   }
-  
+
   /**
    * devuelve un lenguaje especificado
    */
-  function getone(Request $request, Response $response, array $data)    
+  function getone(Request $request, Response $response, array $data)
   {
-    $data = LanguagesModel::one_by_id($data['id']);
+    $data = LanguagesModel::oneById($data['id']);
 
     $response->getBody()->write(json_encode($data));
 
@@ -38,12 +38,38 @@ class LanguagesController
    */
   function create(Request $request, Response $response, array $data)
   {
-    $data =(array) $request->getParsedBody();   
+    $data = (array) $request->getParsedBody();
 
-    $id = LanguagesModel::create_language($data);   
-    
+    $id = LanguagesModel::create_language($data);
+
     $response->getBody()->write(strval($id));
-    
+
     return $response->withHeader('Access-Control-Allow-Origin', '*');
+  }
+
+
+
+  function getByName(Request $request, Response $response, array $data)
+  {
+
+    $data = LanguagesModel::oneByName($data['name']);
+
+    $response->getBody()->write(json_encode($data));
+
+    return $response;
+  }
+
+  function edit(Request $request, Response $response, array $data)
+  {
+
+    $idLang = $data['idLanguage'];
+
+    $data = (array)$request->getParsedBody();
+
+    $result = LanguagesModel::editLang($idLang, $data);
+
+    $response->getBody()->write(json_encode($result));
+
+    return $response;
   }
 }

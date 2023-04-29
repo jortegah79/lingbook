@@ -90,7 +90,8 @@ class HomeController{
     endforeach;
      
   //renovamos videos
-    foreach($datas['videos'] as $d):     
+    foreach($datas['videos'] as $d): 
+     
      VideosModel::re_new_video($d);
     endforeach;
 
