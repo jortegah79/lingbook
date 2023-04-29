@@ -9,11 +9,13 @@ class RoomModel extends MysqlModel{
    
 
 
-public static function createRoom($data):bool{
+public static function createRoom($data){
 
   $sql="insert into ".static::$tabla." (capacity,updated_at,description,DATA) values('".$data['capacity']."','".date('Y-m-d H:i:s')."','".mb_convert_encoding($data['description'], 'UTF-8')."','".$data['DATA']."')";
 
-  return RoomModel::execute($sql);
+   RoomModel::execute($sql);
+
+   return static::getLast()[0]['id_room'];
 }
   /*Desde aquí describimos las posibles funciones de lectura y escritura contra tablas.*/
   

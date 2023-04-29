@@ -11,13 +11,20 @@ class VideosModel extends MysqlModel
   /**
    * Function para registrar nuevos lenguajes. En caso de que el haya uno registrado, se devuelve un 1. Si no, se registra y devolvemos un 0.
    */
-  public static function create_video($data):bool
+  public static function create_video($data)
   {
 
-    $sql = "insert into " . static::$tabla . " (link,likes) values('" . $data['link']."',0)";
+    $sql = "insert into " . static::$tabla . " (link,likes,status) values('" . $data['link']."',0,0)";
       
-    return  VideosModel::new($sql);
+    static::execute($sql);
+
+    $id_video=static::getLast();
     
+    $data['id_video']=$id_video[0]['id_video'];
+
+    $result=UserVideoMessagesModel::addUserVideoMessage($data);
+
+    return $result;
   }
 
 
@@ -84,4 +91,20 @@ public static function like($id):bool{
   }
 
 }
+
+public static function getVideosById($id){
+
+$user=UserModel::one_by_id($id);
+
+if(count($user)>0 && $user[0]['type']=="teacher"){
+
+$sql="select * from ".static::$tabla." v join USER_VIDEOS_MESSAGES uvm on uvm.id_video=v.id_video where uvm.id_user=$id";
+
+return static::execute($sql);
+
+}
+return [];
+
+}
+
   }

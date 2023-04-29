@@ -38,9 +38,11 @@ class VideosController
   /**
    * registra un video en la base de datos con el el link especificado.
    */
-  function create(Request $request, Response $response, array $data)
+  function create(Request $request, Response $response, array $args)
   {
     $data = (array) $request->getParsedBody();
+
+    $data['id_user']=$args['id'];
 
     $id = VideosModel::create_video($data);
 

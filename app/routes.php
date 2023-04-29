@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\AlumnController;
 use Slim\App;
 use App\Controllers\HomeController;
 use App\Controllers\LoginController;
@@ -8,6 +9,7 @@ use App\Controllers\LanguagesController;
 use App\Controllers\MessageController;
 use App\Controllers\TeacherController;
 use App\Controllers\VideosController;
+
 use App\Model\RoomModel;
 use App\Model\UserLanguageModel;
 use Slim\Routing\RouteCollectorProxy;
@@ -60,8 +62,7 @@ return function (App $app) {
 
 
   $app->group('/videos', function (RouteCollectorProxy $group) { //GRUPO DE RUTAS PARA GESTION DE LANGUAGES
-    $group->get('/all', VideosController::class . ':show'); //muestra todos los videos
-    $group->post('/new', VideosController::class . ':create'); //crea un nuevo video requiere solo el (link)
+    $group->get('/all', VideosController::class . ':show'); //muestra todos los videos  
     $group->get('/{id}',  VideosController::class . ':getone');  //devuelve el video especificado por el id 
     $group->delete('/{id}',  VideosController::class . ':changeStatus');  //habilita o deshabilita el video con el id determinado
     $group->put('/{id}',  VideosController::class . ':edit');  //edita el video determinado por su id
@@ -77,16 +78,22 @@ return function (App $app) {
     $group->get('/all', MessageController::class . ':show'); //muestra todos los mensajes
     $group->put('/{id}', MessageController::class . ':edit'); //edita el mensaje con el id especificado 
     $group->get('/{id}', MessageController::class . ':getMessage'); //devuelve el mensaje por el id pasado
-
+    $group->post('/{id}',MessageController::class.':changeStatus');
   });
+
   
 $app->group('/teacher/{id}',function(RouteCollectorProxy $group){
-
-  
+  $group->post('/video', VideosController::class . ':create'); //crea un nuevo video requiere solo el (link)  
+  $group->get('/videos', TeacherController::class . ':showVideos'); //crea un nuevo video requiere solo el (link)  
   $group->post('/room',TeacherController::class.':newRoom'); //añade un nuevo mensaje del profesor
-  
-
+  $group->get('/room',TeacherController::class.':showRooms'); //añade un nuevo mensaje del profesor
 });
+
+$app->group('/alumn/{id}',function(RouteCollectorProxy $group){ 
+  $group->post('/room',AlumnController::class.':addToClass'); //añade un nuevo mensaje del profesor
+  $group->get('/room',AlumnController::class.':showRooms'); //añade un nuevo mensaje del profesor
+});
+
 
 
 

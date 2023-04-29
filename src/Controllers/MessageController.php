@@ -8,7 +8,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class MessageController{
 
-
 function show(Request $request, Response $response, array $args){
 
   $messages=MessagesModel::select();
@@ -53,6 +52,15 @@ function getMessage(Request $request, Response $response, array $args){
 
   return $response;
   
+}
+
+function changeStatus(Request $request, Response $response, array $args){
+
+  $result=MessagesModel::changeStatus($args['id']);
+
+  $response->getBody()->write(json_encode($result));
+
+  return $response;
 }
 
 }
