@@ -88,4 +88,5 @@ class LanguagesModel extends MysqlModel
       return static::execute($sql);
     }
   }
+ 
 }

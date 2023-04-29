@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 
 use App\Model\LanguagesModel;
+use App\Model\UserLanguageModel;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -69,6 +70,14 @@ class LanguagesController
     $result = LanguagesModel::editLang($idLang, $data);
 
     $response->getBody()->write(json_encode($result));
+
+    return $response;
+  }
+  function getTeachers(Request $request, Response $response, array $args)
+  {
+    $data =UserLanguageModel::getTeachersByIdLanguage($args['id']);
+
+    $response->getBody()->write(json_encode($data));
 
     return $response;
   }

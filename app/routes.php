@@ -53,6 +53,7 @@ return function (App $app) {
     $group->get('/id/{id}',  LanguagesController::class . ':getone');   //devuelve un lenguaje por su id
     $group->get('/name/{name}',  LanguagesController::class . ':getByName');   //devuelve un lenguaje por su nombre 
     $group->put('/{id}',  LanguagesController::class . ':edit');   //edita lenguage
+    $group->get('/teachers/{id}',LanguagesController::class.':getTeachers');
   });
 
   // LOCAL
