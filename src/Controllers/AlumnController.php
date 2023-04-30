@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Model\RoomModel;
+use App\Model\UserLanguageModel;
 use App\Model\UserRoomModel;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -14,9 +16,11 @@ class AlumnController
   public static function addToClass(Request $request, Response $response, array $args)
   {
 
-    $data = (array)$request->getParsedBody();
+    $data['id_room'] = $args['id_room'];
 
     $data['id_user'] = $args['id'];
+
+    $data['id_language']=UserRoomModel::getByIdRoom($data['id_room'])['id_language'];    
 
     $result=UserRoomModel::add_to_class($data);
 

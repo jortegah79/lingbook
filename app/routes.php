@@ -33,6 +33,7 @@ return function (App $app) {
 
   $app->group('/users', function (RouteCollectorProxy $group) { //GRUPO DE RUTAS PARA GESTION DE USERS
     $group->get('/all', UserController::class . ':show');  //muestra todos usuarios
+    $group->get('/teachers',UserController::class.':teachers'); //devuelve un listado de profesores
     $group->post('/new', UserController::class . ':create'); //crea nuevo usuario  requiere(name,surname,mail,password,type ( puede ser 0/1/2))
     $group->get('/{id}',  UserController::class . ':getone');   //devuelve un usuario por su id
     $group->post('/login', LoginController::class . ':login'); //recibe un usuario y contraseña y devuelve un token
@@ -53,7 +54,7 @@ return function (App $app) {
     $group->get('/id/{id}',  LanguagesController::class . ':getone');   //devuelve un lenguaje por su id
     $group->get('/name/{name}',  LanguagesController::class . ':getByName');   //devuelve un lenguaje por su nombre 
     $group->put('/{id}',  LanguagesController::class . ':edit');   //edita lenguage
-    $group->get('/teachers/{id}',LanguagesController::class.':getTeachers');
+    $group->get('/{id}/teachers', LanguagesController::class . ':getTeachers');
   });
 
   // LOCAL
@@ -66,9 +67,9 @@ return function (App $app) {
     $group->get('/all', VideosController::class . ':show'); //muestra todos los videos  
     $group->get('/{id}',  VideosController::class . ':getone');  //devuelve el video especificado por el id 
     $group->delete('/{id}',  VideosController::class . ':changeStatus');  //habilita o deshabilita el video con el id determinado
-    $group->put('/{id}',  VideosController::class . ':edit');  //edita el video determinado por su id
-    $group->post('/{id}',  VideosController::class . ':like');  //añade like al video determinado
-    $group->post('/{id}/message',VideosController::class.':addMessage');
+    $group->put('/{id}',  VideosController::class . ':edit');  //edita el video determinado por su id    
+    $group->post('/{id}/{idUser}/message', VideosController::class . ':addMessage');
+    $group->post('/{id}',  VideosController::class . ':like');  //añade like al video determinado 
   });
 
 
@@ -79,21 +80,22 @@ return function (App $app) {
     $group->get('/all', MessageController::class . ':show'); //muestra todos los mensajes
     $group->put('/{id}', MessageController::class . ':edit'); //edita el mensaje con el id especificado 
     $group->get('/{id}', MessageController::class . ':getMessage'); //devuelve el mensaje por el id pasado
-    $group->post('/{id}',MessageController::class.':changeStatus');
+    $group->delete('/{id}', MessageController::class . ':changeStatus');//cambia el estado del mensaje
   });
 
-  
-$app->group('/teacher/{id}',function(RouteCollectorProxy $group){
-  $group->post('/video', VideosController::class . ':create'); //crea un nuevo video requiere solo el (link)  
-  $group->get('/videos', TeacherController::class . ':showVideos'); //crea un nuevo video requiere solo el (link)  
-  $group->post('/room',TeacherController::class.':newRoom'); //añade un nuevo mensaje del profesor
-  $group->get('/room',TeacherController::class.':showRooms'); //añade un nuevo mensaje del profesor
-});
 
-$app->group('/alumn/{id}',function(RouteCollectorProxy $group){ 
-  $group->post('/room',AlumnController::class.':addToClass'); //añade un nuevo mensaje del profesor
-  $group->get('/room',AlumnController::class.':showRooms'); //añade un nuevo mensaje del profesor
-});
+
+  $app->group('/teacher/{id}', function (RouteCollectorProxy $group) {
+    $group->post('/video', VideosController::class . ':create'); //crea un nuevo video requiere solo el (link)  
+    $group->get('/videos', TeacherController::class . ':showVideos'); //crea un nuevo video requiere solo el (link)  
+    $group->post('/newclass', TeacherController::class . ':newRoom'); //añade un nuevo mensaje del profesor
+    $group->get('/classes', TeacherController::class . ':showRooms'); //añade un nuevo mensaje del profesor
+  });
+
+  $app->group('/alumn/{id}', function (RouteCollectorProxy $group) {
+    $group->post('/room/{id_room}', AlumnController::class . ':addToClass'); //añade un nuevo mensaje del profesor
+    $group->get('/room', AlumnController::class . ':showRooms'); //añade un nuevo mensaje del profesor
+  });
 
 
 

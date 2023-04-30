@@ -13,15 +13,12 @@ class MessagesModel extends MysqlModel
 
   public static function createMessage($data):void {
 
-    $sql = "insert into " . static::$tabla . " (description,status) values('" . mb_convert_encoding($data['description'], 'UTF-8') . "','" . $data['status'] . "')";
+    $sql = "insert into " . static::$tabla . " (description,status) values('" . mb_convert_encoding($data['description'], 'UTF-8') . "',1)";
 
    static::execute($sql);
     
   }
-  /*Desde aquí describimos las posibles funciones de lectura y escritura contra tablas.*/
-
-
-
+ 
   public static function re_new_message($data): bool
   {
 
@@ -37,18 +34,22 @@ class MessagesModel extends MysqlModel
 
     $sql = "select * from " . static::$tabla . " where id_message=$id";
 
-    return static::execute($sql);
+    $data= static::execute($sql);
+
+    return count($data)>0?$data[0]:$data;
   }
-  public static function editMessage($id, $data): bool
+  public static function editMessage($id, $data): array
   {
 
-    $data = static::OneById($id);
+    $message = static::OneById($id);
 
-    if (count($data) > 0) {
+    if (count($message) > 0) {
 
       $sql = "update " . static::$tabla . " set description='" . mb_convert_encoding($data['description'], 'UTF-8') . "', updated_at='" . date('Y-m-d H:i:s') . "' where id_message=$id";
 
-      return static::execute($sql);
+      $data=static::execute($sql);
+
+      return count($data)>0?$data[0]:$data;
     }
   }
 
@@ -59,7 +60,7 @@ class MessagesModel extends MysqlModel
 
     if (count($data) > 0) {
 
-      $status = $data[0]['status'] == 0 ? 1 : 0;
+      $status = $data['status'] == 0 ? 1 : 0;
 
       $sql = "update " . static::$tabla . " set status=$status, updated_at='" . date('Y-m-d H:i:s') . "' where id_message=$id";
 

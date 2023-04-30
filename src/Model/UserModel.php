@@ -24,12 +24,14 @@ class UserModel extends MysqlModel
 
       $pass = static::crypt_pass($data['password']);
 
-      $sql = "insert into USERS (name,surname,mail,password,type,updated_at,created_at) values('" . $data['name'] . "','" . $data['surname'] . "','" . $data['mail'] . "','" . $pass . "','" . $tipo . "','" . date('Y-m-d H:i:s') . "','" . date('Y-m-d H:i:s') . "')";
+      $sql = "insert into USERS (name,surname,mail,password,type,updated_at,created_at,status) values('" . $data['name'] . "','" . $data['surname'] . "','" . $data['mail'] . "','" . $pass . "','" . $tipo . "','" . date('Y-m-d H:i:s') . "','" . date('Y-m-d H:i:s') . "',1)";
 
-      return  UserModel::new($sql);
+      UserModel::new($sql);
+
+      return UserModel::getLast()[0]['id_user'];
     } else {
 
-      return "1";
+      return "0";
     }
   }
 
@@ -59,7 +61,7 @@ class UserModel extends MysqlModel
   /**
    * Funcion especifica de usuario. Devuelve un 1 usuario por el mail espeficado.
    */
-  public static function one_by_mail($mail):array
+  public static function one_by_mail($mail): array
   {
 
     $sql = "select * from USERS where mail='$mail'";
@@ -69,26 +71,28 @@ class UserModel extends MysqlModel
     return count($data) > 0 ? $data[0] : [];
   }
 
-  public static function editUser($id,$data){
+  public static function editUser($id, $data)
+  {
 
-    $user=static::one_by_id($id);
+    $user = static::one_by_id($id);
 
-    if(count($user)>0){
-      
-      $sql="update ".static::$tabla ." set name='".$data['name']."', surname='".$data['surname']."', status='".$data['status']."', updated_at='".date('Y-m-d H:i:s')."' where id_user=$id";
+    if (count($user) > 0) {
+
+      $sql = "update " . static::$tabla . " set name='" . $data['name'] . "', surname='" . $data['surname'] . "', status='" . $data['status'] . "', updated_at='" . date('Y-m-d H:i:s') . "' where id_user=$id";
 
       return static::execute($sql);
     }
   }
-  public static function changeStatus($id){
+  public static function changeStatus($id)
+  {
 
-    $user=static::one_by_id($id);
+    $user = static::one_by_id($id);
 
-    if(count($user)>0){
+    if (count($user) > 0) {
 
-      $status=$user[0]['status']==0?1:0;
-      
-      $sql="update ".static::$tabla ." set status='".$user[0]['status']."', updated_at='".date('Y-m-d H:i:s')."' where id_user=$id";
+      $status = $user['status'] == 0 ? 1 : 0;
+
+      $sql = "update " . static::$tabla . " set status=" . $status . ", updated_at='" . date('Y-m-d H:i:s') . "' where id_user=$id";
 
       return static::execute($sql);
     }
@@ -97,7 +101,7 @@ class UserModel extends MysqlModel
   /**
    * Funcion especifica de usuario. Devuelve un 1 usuario por el mail espeficado.
    */
-  public static function one_by_id($id):array
+  public static function one_by_id($id): array
   {
 
     $sql = "select * from USERS where id_user='$id'";
@@ -138,7 +142,7 @@ class UserModel extends MysqlModel
   /**
    * Funcion que codifica la contraseña especificada
    */
-  public static function crypt_pass($pass):string
+  public static function crypt_pass($pass): string
   {
 
     $text = password_hash($pass, PASSWORD_BCRYPT);
@@ -148,9 +152,21 @@ class UserModel extends MysqlModel
   /**
    * Funcion que verifica que la contraseña pasada es correcta.Devuelve true o false.
    */
-  public static function verify_pass(string $pass, string $pass_saved):bool
+  public static function verify_pass(string $pass, string $pass_saved): bool
   {
 
     return password_verify($pass, $pass_saved);
+  }
+
+  public static function getAllTeachers(){
+    $data = static::select();
+
+    $alumnos = [];
+    foreach ($data as $d) :
+      if ($d['type'] == "teacher") {
+        array_push($alumnos, $d);
+      }
+    endforeach;
+    return $alumnos;
   }
 }

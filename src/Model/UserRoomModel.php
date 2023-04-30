@@ -11,11 +11,18 @@ class UserRoomModel extends MysqlModel{
 
 public static function add_to_class($data):bool{
   
+ $sql="select * from ".static::$tabla ." where id_user=".$data['id_user']." && id_room=".$data['id_room']." && id_language=".$data['id_language'];
+
+ $class=static::execute($sql);
+ if(count($class)>0){
   
+  return false;
+ }else{
+
   $sql="insert into ".static::$tabla ." (id_user,id_room,id_language) values ('".$data['id_user']."','".$data['id_room']."','".$data['id_language']."')";
   
   return UserRoomModel::execute($sql);
-
+ }
 }
 
 public static function obtieneClasesUsuario($id):array{
@@ -42,4 +49,14 @@ public static function obtieneUsuariosClase($id):array{
   }
 
 }
+ 
+public static function getByIdRoom($id){
+
+  $sql="select * from ".static::$tabla ." where id_room=$id";
+
+  $data=static::execute($sql);
+
+  return count($data)>0?$data[0]:$data;
+}
+
 }

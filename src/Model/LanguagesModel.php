@@ -12,17 +12,19 @@ class LanguagesModel extends MysqlModel
   public static function create_language($data):string
   {
 
-    $users = LanguagesModel::oneByName(strtolower($data['name']));
+    $langs = LanguagesModel::oneByName(strtolower($data['name']));
 
-    if (count($users) == 0) {
+    if (count($langs) == 0) {
 
       $sql = "insert into " . static::$tabla . " (name) values('" . $data['name'] . "')";
 
-      return  static::new($sql);
+      static::execute($sql);
+
+      return static::getLast("id_language")[0]['id_language'];
    
     } else {
   
-      return "1";
+      return "0";
  
     }
   }
@@ -59,8 +61,9 @@ class LanguagesModel extends MysqlModel
 
     $sql = "select * from " . static::$tabla . " where name='".$name."'";
 
-    return static::execute($sql);
+    $data=static::execute($sql);
   
+    return count($data)>0?$data[0]:[];
   }
 
 
@@ -76,17 +79,19 @@ class LanguagesModel extends MysqlModel
     return count($data) > 0 ? $data[0] : [];
   }
 
-  public static function editLang($id, $name):bool
+  public static function editLang($id, $data):bool
   {
 
     $lang = static::oneById($id);
 
     if (count($lang) > 0) {
 
-      $sql = "update " . static::$tabla . " set name=$name where id_language=$id";
+      $sql = "update " . static::$tabla . " set name='".$data['name']."' where id_language=$id";
 
       return static::execute($sql);
     }
   }
+
+
  
 }

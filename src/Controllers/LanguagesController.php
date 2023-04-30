@@ -60,10 +60,10 @@ class LanguagesController
     return $response;
   }
 
-  function edit(Request $request, Response $response, array $data)
+  function edit(Request $request, Response $response, array $args)
   {
 
-    $idLang = $data['idLanguage'];
+    $idLang = $args['id'];
 
     $data = (array)$request->getParsedBody();
 

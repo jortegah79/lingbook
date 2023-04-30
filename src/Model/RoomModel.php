@@ -15,7 +15,8 @@ public static function createRoom($data){
 
    RoomModel::execute($sql);
 
-   return static::getLast()[0]['id_room'];
+    return static::getLast()[0]['id_room'];
+    
 }
   /*Desde aquí describimos las posibles funciones de lectura y escritura contra tablas.*/
   
@@ -47,8 +48,7 @@ public static function updateRoom($id,$data):bool{
   return static::execute($sql);
   }
 }
-    
-  
+   
 }
 
 

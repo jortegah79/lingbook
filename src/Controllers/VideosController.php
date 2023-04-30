@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Model\MessagesModel;
+use App\Model\UserModel;
 use App\Model\UserVideoMessagesModel;
 use App\Model\VideosModel;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -39,14 +40,24 @@ class VideosController
    * registra un video en la base de datos con el el link especificado.
    */
   function create(Request $request, Response $response, array $args)
-  {
-    $data = (array) $request->getParsedBody();
+  { 
+    
+    $user=UserModel::one_by_id($args['id']);
+    
+    if(count($user)>0 && $user['type']=="teacher"){
+    
+      $data = (array) $request->getParsedBody();
 
-    $data['id_user']=$args['id'];
+      $data['id_user']=$args['id'];
+   
+    $result = VideosModel::create_video($data);
 
-    $id = VideosModel::create_video($data);
+    $response->getBody()->write(json_encode($result));
 
-    $response->getBody()->write(strval($id));
+    }else{
+      
+      $response->getBody()->write(json_encode([]));
+    }    
 
     return $response;
   }
@@ -92,7 +103,7 @@ class VideosController
 
     $data=(array)$request->getParsedBody();
    
-    $id_user=$data['id_user'];
+    $id_user=$args['idUser'];
     
      $result=MessagesModel::createMessage($data);
 

@@ -23,7 +23,7 @@ function edit(Request $request, Response $response, array $args){
   $id=$args['id'];
 
   $data=(array)$request->getParsedBody();
-
+  
   $result=MessagesModel::editMessage($id,$data);
 
   $response->getBody()->write(json_encode($result));

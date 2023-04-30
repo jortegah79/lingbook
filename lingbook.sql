@@ -111,7 +111,7 @@ CREATE TABLE `USERS_ROOM_LANGUAGES` (
 CREATE TABLE `USERS_VIDEOS_MESSAGES` (
   `id_video` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `id_message` int(11) NOT NULL
+  `id_message` int(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

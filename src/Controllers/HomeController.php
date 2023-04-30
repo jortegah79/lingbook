@@ -66,7 +66,7 @@ class HomeController{
     <h2>Mensajes</h2>
     
     <h2>Lengua-usuarios</h2>
-    <h2>uSUARIO-VIDEO-MENSAJE</h2>";
+    <h2>Users-Video-Mensaje</h2>";
     $response->getBody()->write($text);
 
     return $response;  
@@ -133,7 +133,7 @@ class HomeController{
 <h2>Mensajes</h2>
 
 <h2>Lengua-usuarios</h2>
-<h2>uSUARIO-VIDEO-MENSAJE</h2>
+<h2>Users-Video-Mensaje</h2>
 ";
     $response->getBody()->write($text);
     return $response;
