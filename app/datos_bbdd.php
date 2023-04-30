@@ -50,11 +50,18 @@ $array_usuarios[8]=[ "status"=>"1","id_user"=>9,"name"=>"Miriam","surname"=>"Jam
 $array_usuarios[9]=[ "status"=>"1","id_user"=>10,"name"=>"Gerard","surname"=>"Morte","mail"=>"gerimorte@gmail.com","password"=>"geriman84","type"=>"2"];
 $array_usuarios[10]=["status"=>"1","id_user"=>11,"name"=>"Pablo","surname"=>"Stinson","mail"=>"the_pablo@gmail.com","password"=>"123456","type"=>"2"];
 $array_usuarios[11]=["status"=>"1","id_user"=>12,"name"=>"Esther","surname"=>"Alvarez","mail"=>"birdwoman5@gmail.com","password"=>"1595487","type"=>"2"];
-$array_usuarios[12]=["status"=>"1","id_user"=>13,"name"=>"Salva","surname"=>"Ballesta","mail"=>"salva_b79@gmail.com","password"=>"salva@gmail.com","type"=>"2"];
+$array_usuarios[12]=["status"=>"1","id_user"=>13,"name"=>"Salva","surname"=>"Ballesta","mail"=>"salva_b79@gmail.com","password"=>"salvados89","type"=>"2"];
 $array_usuarios[13]=["status"=>"1","id_user"=>14,"name"=>"Antonio","surname"=>"Menosvidal","mail"=>"amenos4@gmail.com","password"=>"111111","type"=>"2"];
 $array_usuarios[14]=["status"=>"1","id_user"=>15,"name"=>"Marc","surname"=>"Marquez","mail"=>"marc@gmail.com","password"=>"12345","type"=>"2"];
 $array_usuarios[15]=["status"=>"1","id_user"=>16,"name"=>"Cristian","surname"=>"Tello","mail"=>"cristiancito@hotmail.com","password"=>"987987","type"=>"1"];
 $array_usuarios[16]=["status"=>"1","id_user"=>17,"name"=>"Mike","surname"=>"Knopler","mail"=>"mike_the_crack@gmail.com","password"=>"1111","type"=>"2"];
+$array_usuarios[17]=["status"=>"1","id_user"=>18,"name"=>"Germán","surname"=>"Flores","mail"=>"gflores@ioc.cat","password"=>"Glores123","type"=>"1"];
+$array_usuarios[18]=["status"=>"1","id_user"=>19,"name"=>"Alejandro","surname"=>"Pérez","mail"=>"alealejandro83@gmail.com","password"=>"abc454545","type"=>"1"];
+$array_usuarios[19]=["status"=>"1","id_user"=>20,"name"=>"shakira","surname"=>"Garmendia","mail"=>"shakattack79@gmail.com","password"=>"vivaPique12","type"=>"1"];
+$array_usuarios[20]=["status"=>"1","id_user"=>21,"name"=>"Orlando","surname"=>"Palomino","mail"=>"hoycomemospollo@larostiseria.cat","password"=>"123456","type"=>"1"];
+$array_usuarios[21]=["status"=>"1","id_user"=>22,"name"=>"Rufina","surname"=>"Alvaro","mail"=>"rufalvaro@gmail.com","password"=>"abcde","type"=>"1"];
+$array_usuarios[22]=["status"=>"1","id_user"=>23,"name"=>"Armando","surname"=>"Revuelta","mail"=>"alavuelta@hotmail.com","password"=>"132456","type"=>"2"];
+$array_usuarios[23]=["status"=>"1","id_user"=>24,"name"=>"Leopoldo","surname"=>"Revuelta","mail"=>"alabuelta@gmail.com","password"=>"12122121","type"=>"2"];
 
 $array_mensaje[0]=["id_message"=>1,"description"=>"Gran video!Me aportó mucho.","status"=>"1"];
 $array_mensaje[1]=["id_message"=>2,"description"=>"Creo que este és el camino...","status"=>"1"];
@@ -102,10 +109,12 @@ $array_user_languages[10]=["id_users"=>12,"id_languages"=>2];
 $array_user_languages[11]=["id_users"=>8,"id_languages"=>6];
 $array_user_languages[12]=["id_users"=>14,"id_languages"=>1];
 $array_user_languages[13]=["id_users"=>2,"id_languages"=>1];
-$array_user_languages[14]=["id_users"=>3,"id_languages"=>3];
+$array_user_languages[14]=["id_users"=>22,"id_languages"=>3];
 $array_user_languages[15]=["id_users"=>3,"id_languages"=>6];
-$array_user_languages[16]=["id_users"=>2,"id_languages"=>3];
-$array_user_languages[17]=["id_users"=>3,"id_languages"=>2];
+$array_user_languages[16]=["id_users"=>18,"id_languages"=>4];
+$array_user_languages[17]=["id_users"=>19,"id_languages"=>2];
+$array_user_languages[18]=["id_users"=>20,"id_languages"=>5];
+$array_user_languages[19]=["id_users"=>21,"id_languages"=>7];
 
 $array_room[0]=["id_room"=>1,"capacity"=>5,"DATA"=>"2023-05-22 15:00:00","description"=>"clase de inglés.Por favor, si finalmente no puedes asistir, deja libre para otro compañero."];
 $array_room[1]=["id_room"=>2,"capacity"=>5,"DATA"=>"2023-05-16 16:30:00","description"=>"clase de italiano .Por favor, si finalmente no puedes asistir, deja libre para otro compañero."];
