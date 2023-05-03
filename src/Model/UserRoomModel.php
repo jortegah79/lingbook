@@ -14,6 +14,7 @@ public static function add_to_class($data):bool{
  $sql="select * from ".static::$tabla ." where id_user=".$data['id_user']." && id_room=".$data['id_room']." && id_language=".$data['id_language'];
 
  $class=static::execute($sql);
+  
  if(count($class)>0){
   
   return false;

@@ -15,6 +15,45 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class TeacherController
 {
 
+  function newlang(Request $request, Response $response, array $args)
+  {
+    $user=UserModel::one_by_id($args['id']);
+   
+    if($user['type']=="teacher"){
+    
+      $data['id_users']=$args['id'];
+
+      $data['id_languages']=$args['id_lang'];
+  
+      $resultado=UserLanguageModel::addUserLang($data);
+
+      $response->getBody()->write(json_encode($resultado));
+
+    }else{
+       $response->getBody()->write("false");
+    }
+
+    return $response;
+  }
+
+  function showLang(Request $request, Response $response, array $args)
+  {
+
+    $user=UserModel::one_by_id($args['id']);
+
+    if($user['type']=="teacher"){
+
+      $user=UserLanguageModel::getLanguagesByIdUser($args['id'])[0];
+      
+      $response->getBody()->write(json_encode($user));
+
+    }else{
+
+      $response->getBody()->write("false");
+   }
+
+   return $response;
+  }
 
   function newRoom(Request $request, Response $response, array $args)
   {

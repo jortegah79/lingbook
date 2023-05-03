@@ -339,6 +339,19 @@ REsultado:
   });
 
 
+
+post  http://www.lingbook.cat.mialias.net/lingbook/teacher/{id}/lang/{id_lang}
+
+result=true|false
+
+    $group->get('/lang', TeacherController::class . ':showLang'); //muestra el idioma del profesor
+		return {
+	"id_users": "21",
+	"id_language": "7",
+	"name": "russian"
+}  
+
+
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 								AlumnController
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://

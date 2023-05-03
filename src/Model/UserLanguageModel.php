@@ -19,6 +19,7 @@ class UserLanguageModel extends MysqlModel
     $sql = "insert into " . static::$tabla . " (id_users,id_language) values (" . $data["id_users"] . "," . $data["id_languages"] . ")";
 
     return static::execute($sql);
+
   }
   public static function getLanguagesByIdUser($id): array|bool
   {

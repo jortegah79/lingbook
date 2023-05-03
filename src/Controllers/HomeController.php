@@ -102,7 +102,7 @@ class HomeController{
 
     //renovamos la interseccion users,room,language
     foreach($data['usu_roo_lan'] as $d):
-      UserRoomModel::add_to_class($d);
+     UserRoomModel::add_to_class($d);
     endforeach;
 
     //renovamos insterseccion usuario room language

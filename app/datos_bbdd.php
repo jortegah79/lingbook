@@ -149,30 +149,30 @@ $array_room[4]=["id_room"=>5,"capacity"=>5,"DATA"=>"2023-06-01 11:00:00","descri
 $array_room[5]=["id_room"=>6,"capacity"=>6,"DATA"=>"2023-06-03 16:00:00","description"=>"clase de italiano.Por favor, si finalmente no puedes asistir, deja libre para otro compañero."];
 $array_room[6]=["id_room"=>7,"capacity"=>5,"DATA"=>"2023-05-26 11:00:00","description"=>"clase de francés .Por favor, si finalmente no puedes asistir, deja libre para otro compañero."];
 
-$array_url[15]=["id_user"=>2,"id_room"=>1,"id_language"=>1];
-$array_url[0]=["id_user"=>6,"id_room"=>1,"id_language"=>1];
-$array_url[4]=["id_user"=>7,"id_room"=>1,"id_language"=>1];
-$array_url[14]=["id_user"=>14,"id_room"=>1,"id_language"=>1];
-$array_url[8]=["id_user"=>10,"id_room"=>1,"id_language"=>1];
+$array_url[0]=["id_user"=>2,"id_room"=>1,"id_language"=>1];
+$array_url[1]=["id_user"=>6,"id_room"=>1,"id_language"=>1];
+$array_url[2]=["id_user"=>7,"id_room"=>1,"id_language"=>1];
+$array_url[3]=["id_user"=>14,"id_room"=>1,"id_language"=>1];
+$array_url[4]=["id_user"=>10,"id_room"=>1,"id_language"=>1];
 
-$array_url[16]=["id_user"=>22,"id_room"=>2,"id_language"=>3];
-$array_url[9]=["id_user"=>13,"id_room"=>2,"id_language"=>3];
-$array_url[1]=["id_user"=>6,"id_room"=>2,"id_language"=>3];
+$array_url[5]=["id_user"=>22,"id_room"=>2,"id_language"=>3];
+$array_url[6]=["id_user"=>13,"id_room"=>2,"id_language"=>3];
+$array_url[7]=["id_user"=>6,"id_room"=>2,"id_language"=>3];
 
-$array_url[17]=["id_user"=>3,"id_room"=>3,"id_language"=>6];
-$array_url[10]=["id_user"=>17,"id_room"=>3,"id_language"=>6];
-$array_url[6]=["id_user"=>11,"id_room"=>3,"id_language"=>6];
-$array_url[7]=["id_user"=>16,"id_room"=>3,"id_language"=>6];
-$array_url[13]=["id_user"=>8,"id_room"=>3,"id_language"=>6];
+$array_url[8]=["id_user"=>3,"id_room"=>3,"id_language"=>6];
+$array_url[9]=["id_user"=>17,"id_room"=>3,"id_language"=>6];
+$array_url[10]=["id_user"=>11,"id_room"=>3,"id_language"=>6];
+$array_url[11]=["id_user"=>16,"id_room"=>3,"id_language"=>6];
+$array_url[12]=["id_user"=>8,"id_room"=>3,"id_language"=>6];
 
-$array_url[18]=["id_user"=>2,"id_room"=>4,"id_language"=>1];
-$array_url[5]=["id_user"=>7,"id_room"=>4,"id_language"=>1];
+$array_url[13]=["id_user"=>2,"id_room"=>4,"id_language"=>1];
+$array_url[14]=["id_user"=>7,"id_room"=>4,"id_language"=>1];
 $array_url[15]=["id_user"=>14,"id_room"=>4,"id_language"=>1];
-$array_url[11]=["id_user"=>10,"id_room"=>4,"id_language"=>1];
-$array_url[2]=["id_user"=>6,"id_room"=>4,"id_language"=>1];
+$array_url[16]=["id_user"=>10,"id_room"=>4,"id_language"=>1];
+$array_url[17]=["id_user"=>6,"id_room"=>4,"id_language"=>1];
 
-$array_url[19]=["id_user"=>22,"id_room"=>5,"id_language"=>3];
-$array_url[3]=["id_user"=>6,"id_room"=>5,"id_language"=>3];
+$array_url[18]=["id_user"=>22,"id_room"=>5,"id_language"=>3];
+$array_url[19]=["id_user"=>6,"id_room"=>5,"id_language"=>3];
 
 $array_url[20]=["id_user"=>22,"id_room"=>6,"id_language"=>3];
 

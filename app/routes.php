@@ -90,6 +90,8 @@ return function (App $app) {
     $group->get('/videos', TeacherController::class . ':showVideos'); //crea un nuevo video requiere solo el (link)  
     $group->post('/newclass', TeacherController::class . ':newRoom'); //añade un nuevo mensaje del profesor
     $group->get('/classes', TeacherController::class . ':showRooms'); //añade un nuevo mensaje del profesor
+    $group->post('/lang/{id_lang}', TeacherController::class . ':newlang'); //añade un nuevo idioma del profesor
+    $group->get('/lang', TeacherController::class . ':showLang'); //muestra el idioma del profesor
   });
 
   $app->group('/alumn/{id}', function (RouteCollectorProxy $group) {
