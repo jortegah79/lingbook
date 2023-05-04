@@ -278,7 +278,7 @@ delete  http://www.lingbook.cat.mialias.net/lingbook/messages/{id}  --> Edita el
     
 		Resultado:true|false;
 
-get http://localhost/lingbook/messages/user/{id} -->devuelve los mensajes del id de usuario especificado.
+get  http://www.lingbook.cat.mialias.net/lingbook/messages/user/{id} -->devuelve los mensajes del id de usuario especificado.
 
 resultado:
 
