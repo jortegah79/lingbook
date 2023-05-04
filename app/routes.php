@@ -98,6 +98,10 @@ return function (App $app) {
   $app->group('/alumn/{id}', function (RouteCollectorProxy $group) {
     $group->post('/room/{id_room}', AlumnController::class . ':addToClass'); //añade un nuevo mensaje del profesor
     $group->get('/room', AlumnController::class . ':showRooms'); //añade un nuevo mensaje del profesor
+    $group->get('/lang', AlumnController::class . ':showLangs'); //añade un nuevo mensaje del profesor
+    $group->post('/lang/{id_lang}', AlumnController::class . ':addLang'); //añade un nuevo mensaje del profesor
+    $group->delete('/lang/{id_lang}', AlumnController::class . ':delLang'); //añade un nuevo mensaje del profesor
+    
   });
 
 

@@ -16,7 +16,7 @@ class UserLanguageModel extends MysqlModel
   public static function addUserLang($data): bool
   {
 
-    $sql = "insert into " . static::$tabla . " (id_users,id_language) values (" . $data["id_users"] . "," . $data["id_languages"] . ")";
+    $sql = "insert into " . static::$tabla . " (id_users,id_language) values (" . $data["id_user"] . "," . $data["id_languages"] . ")";
 
     return static::execute($sql);
 
@@ -43,5 +43,14 @@ class UserLanguageModel extends MysqlModel
     $sql = "SELECT id_user,name,surname,type status FROM " . static::$tabla . " ul join USERS u on ul.id_users=u.id_user where ul.id_language=$id && u.type='teacher'";
 
     return static::execute($sql);
+  }
+  public static function delUsLang($data){
+    
+    $sql="delete from ".static::$tabla. " where id_users='".$data['id_user']."' && id_language='".$data['id_lang']."'";
+
+    
+
+  return static::execute($sql);
+
   }
 }
