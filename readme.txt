@@ -354,14 +354,6 @@ REsultado:
 	}
 ]
 
-   
-    $group->post('/class', TeacherController::class . ':newRoom'); //añade un nuevo mensaje del profesor
-
-
-    $group->get('/classes', TeacherController::class . ':showRooms'); //añade un nuevo mensaje del profesor
-  });
-
-
 
 post  http://www.lingbook.cat.mialias.net/lingbook/teacher/{id}/lang/{id_lang}  -->añade al profesor una lengua
 
