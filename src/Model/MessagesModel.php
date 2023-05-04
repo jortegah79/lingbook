@@ -12,7 +12,7 @@ class MessagesModel extends MysqlModel
 
 public static function showAllMessages(){
 
-  $sql="select m.*,u.id_user from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES u on u.id_message=m.id_message";
+  $sql="select * from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES u on u.id_message=m.id_message";
 
   return static::execute($sql);
 
