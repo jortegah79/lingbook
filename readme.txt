@@ -378,13 +378,6 @@ Resultado:true|false
 get  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/room //Devuelve las clases de una persona
   
 resultado:
-[
-	{
-		"id_users": "5",
-		"id_language": "6",
-		"name": "japanese"
-	}
-]
 
 post  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/lang //el alumno sigue una lengua
 
@@ -397,6 +390,13 @@ true|false
 get  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/lang //el alumno sigue una lengua
 
 resultado:
+[
+	{
+		"id_users": "5",
+		"id_language": "6",
+		"name": "japanese"
+	}
+]
 
 
 
