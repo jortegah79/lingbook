@@ -379,6 +379,18 @@ get  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/room //Devuelve las
   
 resultado:
 
+[
+	{
+		"id_room": "1",
+		"capacity": "5",
+		"updated_at": "2023-05-03 22:43:58",
+		"description": "clase de inglés.Por favor, si finalmente no puedes asistir, deja libre para otro compañero.",
+		"DATA": "2023-05-22 15:00:00",
+		"id_language": "1",
+		"name": "english"
+	}
+]
+
 post  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/lang //el alumno sigue una lengua
 
 resultado:
