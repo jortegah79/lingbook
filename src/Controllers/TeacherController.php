@@ -43,9 +43,9 @@ class TeacherController
 
     if($user['type']=="teacher"){
 
-      $user=UserLanguageModel::getLanguagesByIdUser($args['id'])[0];
+      $data=UserLanguageModel::getLanguagesByIdUser($args['id'])[0];
       
-      $response->getBody()->write(json_encode($user));
+      $response->getBody()->write(json_encode($data));
 
     }else{
 

@@ -239,17 +239,18 @@ Resultado:true|false
 									messages
 //::::::::::::::::::::::::::::::::::::::::::::::::://
 
-get  http://www.lingbook.cat.mialias.net/lingbook/messages/all   --> Devuelve todos los mensajes
+get  http://www.lingbook.cat.mialias.net/lingbook/messages/all   --> Devuelve todos los mensajes añadiendo el id de usuario de cada mensaje.
 
 Resultado:Array<Objeto>
 
 [
 	{
 		"id_message": "1",
-		"description": "Gran video!Me aportó mucho.",
-		"updated_at": "2023-04-30 16:16:31",
-		"created_at": "2023-04-30 16:16:31",
-		"status": "1"
+		"description": "Word stress",
+		"updated_at": "2023-05-03 22:43:58",
+		"created_at": "2023-05-03 22:43:58",
+		"status": "1",
+		"id_user": "2"
 	}
 ]
 
@@ -277,6 +278,28 @@ delete  http://www.lingbook.cat.mialias.net/lingbook/messages/{id}  --> Edita el
     
 		Resultado:true|false;
 
+get http://localhost/lingbook/messages/user/{id} -->devuelve los mensajes del id de usuario especificado.
+
+resultado:
+
+[
+	{
+		"id_message": "26",
+		"description": "Apuntaos al IOC....",
+		"updated_at": "2023-05-03 22:43:58",
+		"created_at": "2023-05-03 22:43:58",
+		"status": "1",
+		"id_user": "7"
+	},
+	{
+		"id_message": "48",
+		"description": "Dicen que aprender a los 50 es algo maravilloso. Lo corroboro.",
+		"updated_at": "2023-05-03 22:43:58",
+		"created_at": "2023-05-03 22:43:58",
+		"status": "1",
+		"id_user": "7"
+	}
+]
     
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 					teachers
@@ -340,11 +363,11 @@ REsultado:
 
 
 
-post  http://www.lingbook.cat.mialias.net/lingbook/teacher/{id}/lang/{id_lang}
+post  http://www.lingbook.cat.mialias.net/lingbook/teacher/{id}/lang/{id_lang}  -->añade al profesor una lengua
 
 result=true|false
 
-    $group->get('/lang', TeacherController::class . ':showLang'); //muestra el idioma del profesor
+get  http://www.lingbook.cat.mialias.net/lingbook/teacher/{id}/lang    -->muestra las lenguas del profesor
 		return {
 	"id_users": "21",
 	"id_language": "7",

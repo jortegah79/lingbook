@@ -10,7 +10,13 @@ class MessagesModel extends MysqlModel
 
   static $tabla = "MESSAGES";
 
+public static function showAllMessages(){
 
+  $sql="select m.*,u.id_user from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES u on u.id_message=m.id_message";
+
+  return static::execute($sql);
+
+}
   public static function createMessage($data):void {
 
     $sql = "insert into " . static::$tabla . " (description,status) values('" . mb_convert_encoding($data['description'], 'UTF-8') . "',1)";
@@ -41,7 +47,7 @@ class MessagesModel extends MysqlModel
   public static function editMessage($id, $data): array
   {
 
-    $message = static::OneById($id);
+    $message = static::oneById($id);
 
     if (count($message) > 0) {
 
@@ -65,6 +71,23 @@ class MessagesModel extends MysqlModel
       $sql = "update " . static::$tabla . " set status=$status, updated_at='" . date('Y-m-d H:i:s') . "' where id_message=$id";
 
       return static::execute($sql);
+    }
+  }
+
+  public static function getMessagesByIdUser($id): array
+  {
+
+    $user = UserModel::one_by_id($id);
+
+    if (count($user) > 0) {
+
+      $sql = "select m.*,u.id_user from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES u on u.id_message=m.id_message where u.id_user='".$id."'";
+
+      return static::execute($sql);
+
+      
+    }else{
+      return "false";
     }
   }
 }

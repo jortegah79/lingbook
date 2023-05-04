@@ -81,6 +81,7 @@ return function (App $app) {
     $group->put('/{id}', MessageController::class . ':edit'); //edita el mensaje con el id especificado 
     $group->get('/{id}', MessageController::class . ':getMessage'); //devuelve el mensaje por el id pasado
     $group->delete('/{id}', MessageController::class . ':changeStatus');//cambia el estado del mensaje
+    $group->get('/user/{id}',MessageController::class .':getMessageByUser'); //devuelve mensajes por usuario
   });
 
 

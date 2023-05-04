@@ -10,7 +10,7 @@ class MessageController{
 
 function show(Request $request, Response $response, array $args){
 
-  $messages=MessagesModel::select();
+  $messages=MessagesModel::showAllMessages();
 
   $response->getBody()->write(json_encode($messages));
 
@@ -61,6 +61,15 @@ function changeStatus(Request $request, Response $response, array $args){
   $response->getBody()->write(json_encode($result));
 
   return $response;
+}
+function getMessageByUser(Request $request, Response $response, array $args){
+
+  $result=MessagesModel::getMessagesByIdUser($args['id']);
+
+  $response->getBody()->write(json_encode($result));
+
+  return $response;
+  
 }
 
 }
