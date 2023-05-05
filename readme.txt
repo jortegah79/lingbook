@@ -391,7 +391,7 @@ resultado:
 	}
 ]
 
-post  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/lang //el alumno sigue una lengua
+post  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/lang/{id_lang} //el alumno sigue una lengua
 
 resultado:
 true|false
@@ -412,6 +412,6 @@ resultado:
 
 
 
-delete  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/lang //el alumno deja de seguir una lengua
+delete  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/lang/{id_lang} //el alumno deja de seguir una lengua
 
 resultado:true | false
