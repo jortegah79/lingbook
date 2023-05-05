@@ -28,6 +28,20 @@ class AlumnController
 
     return $response;
   }
+  public static function deleteFromClass(Request $request, Response $response, array $args)
+  {
+
+    $data['id_room'] = $args['id_room'];
+
+    $data['id_user'] = $args['id'];   
+
+    $result=UserRoomModel::deleteFromClass($data);
+
+    $response->getBody()->write(json_encode(($result)));
+
+    return $response;
+  }
+  
   
 public static function showRooms(Request $request, Response $response, array $args){
 

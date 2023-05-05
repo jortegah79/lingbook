@@ -71,5 +71,13 @@ function getMessageByUser(Request $request, Response $response, array $args){
   return $response;
   
 }
+function getMessagesByVideo(Request $request, Response $response, array $args){
 
+  $result=MessagesModel::getMessagesByIdVideo($args['id_video']);
+
+  $response->getBody()->write(json_encode($result));
+
+  return $response;
+  
+}
 }

@@ -48,6 +48,23 @@ public static function updateRoom($id,$data):bool{
   return static::execute($sql);
   }
 }
+public static function deleteRoom($id):bool{
+
+
+  $room=static::oneById($id);
+
+  if(count($room)>0){
+
+  $sql="delete from ".static::$tabla." where id_room='".$id."'";
+
+  return static::execute($sql);
+
+  }else{
+
+    return "false";
+    
+  }
+}
    
 }
 

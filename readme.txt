@@ -109,7 +109,7 @@ ejemplo:
 }
 resultado: true| false
 
-put http://www.lingbook.cat.mialias.net/lingbook/users/{id} // cambia el estado de 0 a 1 y de 1 a 0 según sea la situación actual
+delete http://www.lingbook.cat.mialias.net/lingbook/users/{id} // cambia el estado de 0 a 1 y de 1 a 0 según sea la situación actual
    
   Resultado: true|false
 
@@ -300,7 +300,21 @@ resultado:
 		"id_user": "7"
 	}
 ]
-    
+   get  http://www.lingbook.cat.mialias.net/lingbook/messages/video/{id_video} -->devuelve los mensajes del id de video especificado.
+
+	 return :
+[
+	{
+		"id_message": "4",
+		"description": "Mini English lessons: Minimal pairs",
+		"updated_at": "2023-05-03 22:43:58",
+		"created_at": "2023-05-03 22:43:58",
+		"status": "1",
+		"id_user": "2"
+	}
+]
+
+
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 					teachers
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
@@ -329,7 +343,7 @@ Resultado:
 		"id_message": "60"
 	}	
 ]
-post  http://www.lingbook.cat.mialias.net/lingbook/teacher/{id}/class //crea una nueva clase.
+post  http://www.lingbook.cat.mialias.net/lingbook/teacher/{id}/newclass //crea una nueva clase.
 
 EJemplo:
 {	
@@ -337,6 +351,11 @@ EJemplo:
 	"description":"El link para la video clase es ....",
 	"DATA":"2023-05-23 15:00:00"
 }
+delete  http://www.lingbook.cat.mialias.net/lingbook/teacher/{id}/class/{id_room} //borra una clase una nueva clase.
+
+
+
+
 
 
 get  http://www.lingbook.cat.mialias.net/lingbook/teacher/{id}/classes //Devuelve todas las clases para el profe determinado con por la id
@@ -354,7 +373,6 @@ REsultado:
 	}
 ]
 
-
 post  http://www.lingbook.cat.mialias.net/lingbook/teacher/{id}/lang/{id_lang}  -->añade al profesor una lengua
 
 result=true|false
@@ -368,12 +386,15 @@ get  http://www.lingbook.cat.mialias.net/lingbook/teacher/{id}/lang    -->muestr
 
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
-								AlumnController
+								Alumn
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
 
 post  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/room/{id_room} //Añade un alumno a una clase con el id de usuario y de la clase
 
 Resultado:true|false
+
+delete  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/room/{id_room} //Desapunta un alumno de una clase con el id de usuario y de la clase
+
 
 get  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/room //Devuelve las clases de una persona
   
@@ -391,7 +412,7 @@ resultado:
 	}
 ]
 
-post  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/lang //el alumno sigue una lengua
+post  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/lang/{id_lang}  //el alumno sigue una lengua
 
 resultado:
 true|false
@@ -412,6 +433,6 @@ resultado:
 
 
 
-delete  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/lang //el alumno deja de seguir una lengua
+delete  http://www.lingbook.cat.mialias.net/lingbook/alumn/{id}/lang/{id_lang} //el alumno deja de seguir una lengua
 
 resultado:true | false

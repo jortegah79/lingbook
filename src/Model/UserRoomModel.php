@@ -25,6 +25,34 @@ public static function add_to_class($data):bool{
   return UserRoomModel::execute($sql);
  }
 }
+public static function deleteFromClass($data):bool{
+
+  $userClases=static::obtieneClasesUsuario($data['id_user']);
+  
+  $existe=false;
+
+  foreach($userClases as $u):
+
+    if($u['id_room']==$data['id_room']){
+
+      $existe=true;
+
+    }
+  endforeach;
+
+  if($existe){
+
+  $sql="delete from ".static::$tabla ." where id_user=".$data['id_user']." && id_room=".$data['id_room'];
+ 
+  return static::execute($sql);
+   
+  }else{
+
+    return false;
+
+  }
+ }
+ 
 
 public static function obtieneClasesUsuario($id):array{
 

@@ -90,4 +90,20 @@ public static function showAllMessages(){
       return "false";
     }
   }
+  public static function getMessagesByIdVideo($id_video): array
+  {
+
+    $video = VideosModel::one_by_id($id_video);
+
+    if (count($video) > 0) {
+
+      $sql = "select m.*,u.id_user from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES u on u.id_message=m.id_message where u.id_video='".$id_video."'";
+
+      return static::execute($sql);
+
+      
+    }else{
+      return "false";
+    }
+  }
 }

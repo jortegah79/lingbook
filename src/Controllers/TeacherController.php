@@ -62,7 +62,7 @@ class TeacherController
 
     $user = UserModel::one_by_id($id_teacher);
 
-    if (count($user) > 0 && $user['type'] = "teacher") {
+    if (count($user) > 0 && $user['type'] == "teacher") {
 
       $data = (array)$request->getParsedBody();
 
@@ -82,6 +82,24 @@ class TeacherController
       return false;
     }
   }
+  function deleteRoom(Request $request, Response $response, array $args)
+  {
+    $id_teacher = $args['id'];
+
+    $user = UserModel::one_by_id($id_teacher);
+
+    if (count($user) > 0 && $user['type'] == "teacher") {
+
+      $result=RoomModel::deleteRoom($args['id_room']);
+     
+      $response->getBody()->write(json_encode($result));
+
+      return $response;
+    } else {
+
+      return "false";
+    }
+  }
   function showVideos(Request $request, Response $response, array $args)
   {
     
@@ -97,7 +115,7 @@ class TeacherController
 
     $user = UserModel::one_by_id($args['id']);
 
-    if (count($user) > 0 && $user['type'] = "teacher") {
+    if (count($user) > 0 && $user['type'] == "teacher") {
 
       $result = UserRoomModel::obtieneClasesUsuario($args['id']);
     } else {
