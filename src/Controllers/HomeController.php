@@ -26,9 +26,9 @@ class HomeController{
     $data=array(
       "Grup"=>"CATCODERS",
       "Producte"=>"LingBook",
-      "Product Owner"=>"Juan Ortega",
+      "Product Owner"=>"Joan Ramon Nova",
       "Integrant 1"=>"Laura Baena",
-      "Integrant 2"=>"Joan Ramon Nova",      
+      "Integrant 2"=>"Juan Ortega",      
       "Integrant 3"=>"Nuria Masvidal",
       "Descripció"=>"Proyecte final de DAW pel curs 2022/2023"
     );

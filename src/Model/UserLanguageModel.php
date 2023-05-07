@@ -16,7 +16,7 @@ class UserLanguageModel extends MysqlModel
   public static function addUserLang($data): bool
   {
 
-    $sql = "insert into " . static::$tabla . " (id_users,id_language) values (" . $data["id_user"] . "," . $data["id_languages"] . ")";
+    $sql = "insert into " . static::$tabla . " (id_users,id_language) values (" . $data["id_users"] . "," . $data["id_languages"] . ")";
 
     return static::execute($sql);
 
