@@ -56,7 +56,9 @@ public static function showAllMessages(){
        static::execute($sql);
 
        return static::oneById($id);
+
     }else{
+      
       return false;
     }
   }
@@ -99,7 +101,7 @@ public static function showAllMessages(){
 
     if (count($video) > 0) {
 
-      $sql = "select m.*,u.id_user from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES uv on uv.id_message=m.id_message join USERS u on u.id_user=uv.id_user where uv.id_video='".$id_video."'";
+      $sql = "select m.*,u.id_user,u.name,u.surname from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES uv on uv.id_message=m.id_message join USERS u on u.id_user=uv.id_user where uv.id_video='".$id_video."'";
 
       return static::execute($sql);
       
