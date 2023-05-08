@@ -29,7 +29,7 @@ class VideosController
    */
   function getone(Request $request, Response $response, array $data)
   {
-    $data = VideosModel::one_by_id($data['id']);
+    $data = VideosModel::getOneVideoWithTeacher($data['id']);
 
     $response->getBody()->write(json_encode($data));
 

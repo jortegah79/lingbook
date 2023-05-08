@@ -45,7 +45,15 @@ class VideosModel extends MysqlModel
     return  VideosModel::new($sql);
   }
 
+public static function getOneVideoWithTeacher($id_video){
 
+  
+  $sql = "select v.*,u.id_user,u.name,u.surname from USERS_VIDEOS_MESSAGES uv join VIDEOS v on v.id_video=uv.id_video join USERS u on u.id_user=uv.id_user where v.id_video='".$id_video."' && u.type='teacher'";
+
+  $data = MysqlModel::execute($sql);
+  
+  return count($data) > 0 ? $data[0] : [];
+}
   /**
    * Funcion especifica de lenguaje. Devuelve un 1 lenguaje por su id espeficado.
    */
@@ -55,7 +63,7 @@ class VideosModel extends MysqlModel
     $sql = "select * from " . static::$tabla . " where id_video='$id'";
 
     $data = MysqlModel::execute($sql);
-
+  
     return count($data) > 0 ? $data[0] : [];
   }
   public static function changeStatus($id): bool

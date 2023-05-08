@@ -12,7 +12,7 @@ class MessagesModel extends MysqlModel
 
 public static function showAllMessages(){
 
-  $sql="select * from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES u on u.id_message=m.id_message";
+  $sql="select m.*,uv.*,u.name,u.surname from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES uv on uv.id_message=m.id_message join USERS u on u.id_user=uv.id_user where m.status=1";
 
   return static::execute($sql);
 
@@ -44,7 +44,7 @@ public static function showAllMessages(){
 
     return count($data)>0?$data[0]:$data;
   }
-  public static function editMessage($id, $data): array
+  public static function editMessage($id, $data)
   {
 
     $message = static::oneById($id);
@@ -52,10 +52,9 @@ public static function showAllMessages(){
     if (count($message) > 0) {
 
       $sql = "update " . static::$tabla . " set description='" . mb_convert_encoding($data['description'], 'UTF-8') . "', updated_at='" . date('Y-m-d H:i:s') . "' where id_message=$id";
+      
+      return static::execute($sql);
 
-      $data=static::execute($sql);
-
-      return count($data)>0?$data[0]:$data;
     }
   }
 
@@ -81,7 +80,7 @@ public static function showAllMessages(){
 
     if (count($user) > 0) {
 
-      $sql = "select m.*,u.id_user from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES u on u.id_message=m.id_message where u.id_user='".$id."'";
+      $sql = "select m.*,u.id_user,u.id_video from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES u on u.id_message=m.id_message where u.id_user='".$id."'";
 
       return static::execute($sql);
 
@@ -97,10 +96,9 @@ public static function showAllMessages(){
 
     if (count($video) > 0) {
 
-      $sql = "select m.*,u.id_user from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES u on u.id_message=m.id_message where u.id_video='".$id_video."'";
+      $sql = "select m.*,u.id_user from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES uv on uv.id_message=m.id_message join USERS u on u.id_user=uv.id_user where uv.id_video='".$id_video."'";
 
       return static::execute($sql);
-
       
     }else{
       return "false";

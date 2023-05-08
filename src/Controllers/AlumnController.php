@@ -12,7 +12,6 @@ class AlumnController
 {
 
 
-
   public static function addToClass(Request $request, Response $response, array $args)
   {
 
@@ -57,9 +56,10 @@ public static function addLang(Request $request, Response $response, array $args
 
   $data['id_languages'] = $args['id_lang'];
 
-  $data['id_user'] = $args['id'];
+  $data['id_users'] = $args['id'];
   
   $result=UserLanguageModel::addUserLang($data);
+
   $response->getBody()->write(json_encode(($result)));
 
   return $response;

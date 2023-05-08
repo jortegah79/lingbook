@@ -17,7 +17,7 @@ class UserLanguageModel extends MysqlModel
   {
 
     $sql = "insert into " . static::$tabla . " (id_users,id_language) values (" . $data["id_users"] . "," . $data["id_languages"] . ")";
-
+    
     return static::execute($sql);
 
   }
@@ -40,7 +40,7 @@ class UserLanguageModel extends MysqlModel
   public static function getTeachersByIdLanguage($id): array|bool
   {
 
-    $sql = "SELECT id_user,name,surname,type status FROM " . static::$tabla . " ul join USERS u on ul.id_users=u.id_user where ul.id_language=$id && u.type='teacher'";
+    $sql = "SELECT id_user,name,surname,type status FROM " . static::$tabla . " ul join USERS u on ul.id_users=u.id_user where ul.id_language=$id && u.type='teacher' && u.status='1'";
 
     return static::execute($sql);
   }
