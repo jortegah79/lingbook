@@ -38,7 +38,7 @@ public static function showAllMessages(){
   public static function oneById($id): array
   {
 
-    $sql = "select * from " . static::$tabla . " where id_message=$id";
+    $sql="select m.*,u.id_user,u.id_video from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES u on u.id_message=m.id_message where m.id_message='".$id."'";
 
     $data= static::execute($sql);
 
@@ -53,8 +53,11 @@ public static function showAllMessages(){
 
       $sql = "update " . static::$tabla . " set description='" . mb_convert_encoding($data['description'], 'UTF-8') . "', updated_at='" . date('Y-m-d H:i:s') . "' where id_message=$id";
       
-      return static::execute($sql);
+       static::execute($sql);
 
+       return static::oneById($id);
+    }else{
+      return false;
     }
   }
 
