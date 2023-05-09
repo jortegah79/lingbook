@@ -66,18 +66,34 @@ public static function getOneVideoWithTeacher($id_video){
   
     return count($data) > 0 ? $data[0] : [];
   }
-  public static function changeStatus($id): bool
+  public static function changeStatus($id)
   {
 
     $video = static::one_by_id($id);
 
+    
     if (count($video) > 0) {
 
       $status = $video['status'] == 1 ? 0 : 1;
 
       $sql = "update " . static::$tabla . " set status=$status, updated_at='" . date("Y-m-d H:i:s") . "' where id_video=$id";
 
-      return static::execute($sql);
+       static::execute($sql);
+       
+       $messages=MessagesModel::getMessagesByIdVideo($id);
+
+       foreach($messages as $m):
+
+          $m['status']=$status;
+
+          MessagesModel::editMessage($m['id_message'],$m);
+
+       endforeach;
+       
+       return true;
+    
+    }else{
+      return false;
     }
   }
   public static function editVideo($id, $data): bool

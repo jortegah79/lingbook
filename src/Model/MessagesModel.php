@@ -12,7 +12,7 @@ class MessagesModel extends MysqlModel
 
 public static function showAllMessages(){
 
-  $sql="select m.*,uv.*,u.name,u.surname from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES uv on uv.id_message=m.id_message join USERS u on u.id_user=uv.id_user where m.status=1";
+  $sql="select m.*,uv.*,u.name,u.surname from ".static::$tabla ." m join USERS_VIDEOS_MESSAGES uv on uv.id_message=m.id_message join USERS u on u.id_user=uv.id_user ";
 
   return static::execute($sql);
 
@@ -49,11 +49,13 @@ public static function showAllMessages(){
 
     $message = static::oneById($id);
 
+    $status=isset($data['status'])?$data['status']:$message['status'];
+
     if (count($message) > 0) {
 
-      $sql = "update " . static::$tabla . " set description='" . mb_convert_encoding($data['description'], 'UTF-8') . "', updated_at='" . date('Y-m-d H:i:s') . "' where id_message=$id";
+      $sql = "update " . static::$tabla . " set description='" . mb_convert_encoding($data['description'], 'UTF-8') . "', updated_at='" . date('Y-m-d H:i:s') . "', status='".$status."' where id_message=$id";
       
-       static::execute($sql);
+       static::execute($sql);       
 
        return static::oneById($id);
 
@@ -63,7 +65,7 @@ public static function showAllMessages(){
     }
   }
 
-  public static function changeStatus($id): bool
+  public static function changeStatus($id)
   {
 
     $data = static::OneById($id);
@@ -75,6 +77,9 @@ public static function showAllMessages(){
       $sql = "update " . static::$tabla . " set status=$status, updated_at='" . date('Y-m-d H:i:s') . "' where id_message=$id";
 
       return static::execute($sql);
+      
+    }else{
+      return false;
     }
   }
 
