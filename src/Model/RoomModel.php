@@ -11,7 +11,9 @@ class RoomModel extends MysqlModel{
 
 public static function createRoom($data){
 
-  $sql="insert into ".static::$tabla." (capacity,updated_at,description,DATA) values('".$data['capacity']."','".date('Y-m-d H:i:s')."','".mb_convert_encoding($data['description'], 'UTF-8')."','".$data['DATA']."')";
+   $fecha=is_numeric($data['DATA'])?date('Y-m-d H:i',$data['DATA']):date('Y-m-d H:i',strtotime($data['DATA']));
+  
+  $sql="insert into ".static::$tabla." (capacity,updated_at,description,DATA) values('".$data['capacity']."','".date('Y-m-d H:i:s')."','".mb_convert_encoding($data['description'], 'UTF-8')."','".$fecha."')";
 
    RoomModel::execute($sql);
 

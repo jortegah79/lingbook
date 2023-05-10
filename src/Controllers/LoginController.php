@@ -20,7 +20,7 @@ class LoginController
     
     $user=UserModel::one_by_mail($data['mail']);
 
-    if(UserModel::verify_pass($data['password'],$user['password']??"")){
+    if(UserModel::verify_pass($data['password'],$user['password']??"" && $user['status']=='1')){
          
     $tokenizador=require_once('./app/tokenizador.php');
     
@@ -34,13 +34,18 @@ class LoginController
     
     return $response;
 
-    }else{
+    }else if ($user['status']=='0'){
 
-    $response->getBody()->write("error");
+    $response->getBody()->write("blocked");
     
     return $response;
 
-    }          
+    }else{
+
+      $response->getBody()->write("error");
+    
+    return $response;
+    }
   }
   
 

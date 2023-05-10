@@ -64,7 +64,7 @@ class UserModel extends MysqlModel
   public static function one_by_mail($mail): array
   {
 
-    $sql = "select * from USERS where mail='$mail'";
+    $sql = "select * from USERS where mail='$mail' ";
 
     $data = MysqlModel::execute($sql);
 
